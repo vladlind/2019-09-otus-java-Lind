@@ -37,7 +37,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>ru.Otus.HW01_maven.HelloOtus</mainClass>
+                            <mainClass>HelloOtus</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
