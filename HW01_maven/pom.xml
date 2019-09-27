@@ -12,8 +12,8 @@
     </parent>
 
 
-    <artifactId>HW1-maven</artifactId>
-    <name>HW1-maven</name>
+    <artifactId>hw01-maven</artifactId>
+    <name>hw01-maven</name>
 
     <dependencies>
         <dependency>
@@ -37,7 +37,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>HelloOtus</mainClass>
+                            <mainClass>ru.otus.hw01_maven.HelloOtus</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

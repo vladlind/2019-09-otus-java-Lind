@@ -24,7 +24,7 @@
     </developers>
 
     <modules>
-        <module>HW01_maven</module>
+        <module>hw01_maven</module>
     </modules>
 
     <properties>

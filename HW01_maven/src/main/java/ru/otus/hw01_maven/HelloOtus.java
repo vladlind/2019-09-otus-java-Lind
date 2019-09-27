@@ -1,3 +1,5 @@
+package ru.otus.hw01_maven;
+
 import com.google.common.collect.ImmutableSet;
 
 import java.util.Set;
