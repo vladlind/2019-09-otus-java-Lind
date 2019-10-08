@@ -8,12 +8,12 @@ public class DIYArrayList<E> implements List<E> {
 
     private int size = 0;
     private Object elementData[] = {};
-    protected transient int modCount = 0;
+    private transient int modCount = 0;
     private static final Object[] DEFAULTCAPACITY_EMPTY_ELEMENTDATA = {};
     private static final int DEFAULT_CAPACITY = 10;
     private static final int MAX_ARRAY_SIZE = Integer.MAX_VALUE - 8;
 
-    public DIYArrayList() {
+    DIYArrayList() {
         this.elementData = new Object[DEFAULT_CAPACITY];
     }
 

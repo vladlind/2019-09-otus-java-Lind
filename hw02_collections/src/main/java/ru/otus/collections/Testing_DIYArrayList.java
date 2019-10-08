@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class Testing_DIYArrayList {
-    public static void printElements(DIYArrayList arrayList) {
+    private static void printElements(DIYArrayList arrayList) {
         for(int i = 0; i < arrayList.size(); i++) {
             System.out.print(arrayList.get(i));
         }
