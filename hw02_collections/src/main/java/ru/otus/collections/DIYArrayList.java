@@ -2,18 +2,50 @@ package ru.otus.collections;
 
 
 import java.util.*;
+import java.util.function.Consumer;
 
 public class DIYArrayList<E> implements List<E> {
 
     private int size = 0;
     private Object elementData[] = {};
     protected transient int modCount = 0;
+    private static final Object[] DEFAULTCAPACITY_EMPTY_ELEMENTDATA = {};
+    private static final int DEFAULT_CAPACITY = 10;
+    private static final int MAX_ARRAY_SIZE = Integer.MAX_VALUE - 8;
 
     public DIYArrayList() {
-        this.elementData = new Object[100];
+        this.elementData = new Object[DEFAULT_CAPACITY];
     }
 
-
+    private Object[] grow(int minCapacity) {
+        return elementData = Arrays.copyOf(elementData,
+                newCapacity(minCapacity));
+    }
+    private static int hugeCapacity(int minCapacity) {
+        if (minCapacity < 0) // overflow
+            throw new OutOfMemoryError();
+        return (minCapacity > MAX_ARRAY_SIZE)
+                ? Integer.MAX_VALUE
+                : MAX_ARRAY_SIZE;
+    }
+    private int newCapacity(int minCapacity) {
+        // overflow-conscious code
+        int oldCapacity = elementData.length;
+        int newCapacity = oldCapacity + (oldCapacity >> 1);
+        if (newCapacity - minCapacity <= 0) {
+            if (elementData == DEFAULTCAPACITY_EMPTY_ELEMENTDATA)
+                return Math.max(DEFAULT_CAPACITY, minCapacity);
+            if (minCapacity < 0) // overflow
+                throw new OutOfMemoryError();
+            return minCapacity;
+        }
+        return (newCapacity - MAX_ARRAY_SIZE <= 0)
+                ? newCapacity
+                : hugeCapacity(minCapacity);
+    }
+    private Object[] grow() {
+        return grow(size + 1);
+    }
     @Override
     public int size() {
         return size;
@@ -46,7 +78,8 @@ public class DIYArrayList<E> implements List<E> {
 
     @Override
     public boolean add(E e) {
-        elementData[size++] = e;
+        modCount++;
+        add(e, elementData, size);
         return true;
     }
 
@@ -107,10 +140,32 @@ public class DIYArrayList<E> implements List<E> {
             throw new ConcurrentModificationException();
         modCount++;
     }
-
+    private String outOfBoundsMsg(int index) {
+        return "Index: "+index+", Size: "+size;
+    }
+    private void add(E e, Object[] elementData, int s) {
+        if (s == elementData.length)
+            elementData = grow();
+        elementData[s] = e;
+        size = s + 1;
+    }
+    private void rangeCheckForAdd(int index) {
+        if (index > size || index < 0)
+            throw new IndexOutOfBoundsException(outOfBoundsMsg(index));
+    }
     @Override
     public void add(int index, E element) {
-        throw new UnsupportedOperationException("not yet implemented");
+        rangeCheckForAdd(index);
+        modCount++;
+        final int s;
+        Object[] elementData;
+        if ((s = size) == (elementData = this.elementData).length)
+            elementData = grow();
+        System.arraycopy(elementData, index,
+                elementData, index + 1,
+                s - index);
+        elementData[index] = element;
+        size = s + 1;
     }
 
     @Override
@@ -130,7 +185,7 @@ public class DIYArrayList<E> implements List<E> {
 
     @Override
     public ListIterator<E> listIterator() {
-        throw new UnsupportedOperationException("not yet implemented");
+        return null;
     }
 
     @Override
@@ -141,47 +196,6 @@ public class DIYArrayList<E> implements List<E> {
     @Override
     public List<E> subList(int fromIndex, int toIndex) {
         throw new UnsupportedOperationException("not yet implemented");
-    }
-
-    public static void main(String[] args) {
-        List<String> arrlist = new DIYArrayList<>();
-        arrlist.add("B");
-        arrlist.add("A");
-        arrlist.add("D");
-        arrlist.add("C");
-        for(int i = 0; i < arrlist.size(); i++) {
-            System.out.println(arrlist.get(i));
-        }
-        System.out.println("----------------");
-
-        Collections.addAll(arrlist, "BB","AA", "CC", "DD");
-        for(int i = 0; i < arrlist.size(); i++) {
-            System.out.println(arrlist.get(i));
-        }
-        System.out.println("----------------");
-
-        List<String> arrlist2 = new DIYArrayList<>();
-        for(int i = 0; i<21; i++) {
-            arrlist2.add("element" + i);
-        }
-        for(int i = 0; i < arrlist2.size(); i++) {
-            System.out.println(arrlist2.get(i));
-        }
-        System.out.println("----------------");
-
-        Collections.copy(arrlist2, arrlist);
-        for(int i = 0; i < arrlist2.size(); i++) {
-            System.out.println(arrlist2.get(i));
-        }
-        System.out.println("----------------");
-
-        Collections.sort(arrlist2, Collections.reverseOrder());
-        for(int i = 0; i < arrlist2.size(); i++) {
-            System.out.println(arrlist2.get(i));
-        }
-        System.out.println("----------------");
-
-        arrlist.remove(1);
     }
 }
 
