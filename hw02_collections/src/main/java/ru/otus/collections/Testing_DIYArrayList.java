@@ -12,22 +12,11 @@ public class Testing_DIYArrayList {
     }
 
     public static void main(String[] args) {
-        //List<String> arrlist13 = new DIYArrayList<>();
-        //Collections.addAll(arrlist13, "BB", "AA", "CC", "DD", "BB", "AA", "CC", "DD", "BB", "AA");
 
-        //List<String> arrlist12 = new DIYArrayList<>();
-        //for (int i = 0; i < 21; i++) {
-        //    arrlist12.add("element" + i);
-        //}
-        //Collections.copy(arrlist12, arrlist13);
+
         List<String> arrlist = new DIYArrayList<>();
-        arrlist.add("B");
-        arrlist.add("A");
-        arrlist.add("D");
-        arrlist.add("C");
-        printElements((DIYArrayList) arrlist);
 
-        Collections.addAll(arrlist, "BB","AA", "CC", "DD");
+        Collections.addAll(arrlist, "BB", "AA", "CC", "DD", "BB", "AA", "CC", "DD", "BB", "AA", "ZZ");
         printElements((DIYArrayList) arrlist);
 
         List<String> arrlist2 = new DIYArrayList<>();
