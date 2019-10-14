@@ -1,7 +1,11 @@
 package ru.otus.collections;
 
+import jdk.swing.interop.SwingInterOpUtils;
+
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Testing_DIYArrayList {
     private static void printElements(DIYArrayList arrayList) {
@@ -35,6 +39,13 @@ public class Testing_DIYArrayList {
             list.add(i);
         }
         printElements((DIYArrayList) list);
+        List<Integer> src = IntStream.range(0, 100).boxed().collect(Collectors.toList());
+        List<Integer> dest = new DIYArrayList<>();
+        for(int i = 0; i < src.size(); i++) {
+            dest.add(i);
+        }
+        Collections.copy(dest, src);
+        printElements((DIYArrayList) dest);
     }
 
 
