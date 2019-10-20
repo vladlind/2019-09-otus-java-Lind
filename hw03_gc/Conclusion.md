@@ -14,12 +14,12 @@
 
 с -XX:MaxGCPauseMillis=10000:
 
-start:45156ms Name:G1 Young Generation, action:end of minor GC, gcCause:G1 Evacuation Pause(1556 ms)
-start:57634ms Name:G1 Young Generation, action:end of minor GC, gcCause:G1 Evacuation Pause(640 ms)
+_start:45156ms Name:G1 Young Generation, action:end of minor GC, gcCause:G1 Evacuation Pause(1556 ms)
+start:57634ms Name:G1 Young Generation, action:end of minor GC, gcCause:G1 Evacuation Pause(640 ms)_
 
 c дефолтным значением MaxGCpause:
 
-start:1874ms Name:G1 Young Generation, action:end of minor GC, gcCause:G1 Evacuation Pause(184 ms)
+_start:1874ms Name:G1 Young Generation, action:end of minor GC, gcCause:G1 Evacuation Pause(184 ms)
 start:2257ms Name:G1 Young Generation, action:end of minor GC, gcCause:G1 Evacuation Pause(159 ms)
 start:12733ms Name:G1 Young Generation, action:end of minor GC, gcCause:G1 Evacuation Pause(118 ms)
 start:13081ms Name:G1 Young Generation, action:end of minor GC, gcCause:G1 Evacuation Pause(115 ms)
@@ -33,7 +33,7 @@ start:45412ms Name:G1 Young Generation, action:end of minor GC, gcCause:G1 Evacu
 start:45707ms Name:G1 Young Generation, action:end of minor GC, gcCause:G1 Evacuation Pause(116 ms)
 start:45986ms Name:G1 Young Generation, action:end of minor GC, gcCause:G1 Evacuation Pause(108 ms)
 start:56283ms Name:G1 Young Generation, action:end of minor GC, gcCause:G1 Evacuation Pause(116 ms)
-start:56562ms Name:G1 Young Generation, action:end of minor GC, gcCause:G1 Evacuation Pause(109 ms)
+start:56562ms Name:G1 Young Generation, action:end of minor GC, gcCause:G1 Evacuation Pause(109 ms)_
 
 По логам видно, что сумма множества коротких GC пауз меньше, чем сумма двух длинных пауз. Это связано с тем, что G1 для эффективной очистки памяти каждый раз при очистке памяти от бессылочных объетов также отмечает новых кандидатов на удаление - получается, чем чаще G1 на короткое время останавливает приложение, тем эффективнее и быстрее будет следующая пауза  - то есть G1 тем самым достигает некоего баланса между задержкой (Latency) и пропускной способностью приложения (Throughput).
 
@@ -44,13 +44,13 @@ start:56562ms Name:G1 Young Generation, action:end of minor GC, gcCause:G1 Evacu
 
 SerialGC:
 
-List size after removal: 13125000
-time:38865ms
+_List size after removal: 13125000
+time:38865ms_
 
 ParallelGC:
 
-ist size after removal: 13125000
-time:37390ms
+_List size after removal: 13125000
+time:37390ms_
 
 3) В таблице "-Xms10240m -Xmx10240m LoopCounter = 15M" преимущество во времени выполнения приложения с ParallelGC перед другими GC нагляднее всего. Незначительно проигрывает по времени G1, компенсируя общее время выполнения приложения очень короткими стоп-паузами, что делает G1 лидером по Latency среди тестируемых GC.
 
