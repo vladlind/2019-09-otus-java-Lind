@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>ru.otus</artifactId>
+    <artifactId>hw03_gc</artifactId>
 
 
 </project>
