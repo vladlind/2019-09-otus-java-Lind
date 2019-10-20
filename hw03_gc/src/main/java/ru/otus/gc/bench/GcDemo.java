@@ -24,8 +24,8 @@ public class GcDemo {
     switchOnMonitoring();
     long beginTime = System.currentTimeMillis();
 
-    //int loopCounter = 5000000;
-    int loopCounter = 15000000;
+    int loopCounter = 5000000;
+//    int loopCounter = 15000000;
 
     MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
 
@@ -59,5 +59,4 @@ public class GcDemo {
       emitter.addNotificationListener(listener, null, null);
     }
   }
-
 }
