@@ -16,7 +16,7 @@ public class AnnotationsValidator {
         Class<?> clazz = HumanClassTest.class;
         Method[] declaredMethods = clazz.getDeclaredMethods();
         Method beforeMethod = null, afterMethod = null, afterAllMethod = null;
-        Object newinstance = clazz.getDeclaredConstructor().newInstance();
+
         for (Method method : declaredMethods) {
             try {
                 method.setAccessible(true);
@@ -24,13 +24,14 @@ public class AnnotationsValidator {
                     beforeMethod = method;
 
                 } else if (method.isAnnotationPresent(BeforeAll.class)) {
-                    method.invoke(newinstance);
+                    method.invoke(clazz.getDeclaredConstructor().newInstance());
                 } else if (method.isAnnotationPresent(After.class)) {
                     afterMethod = method;
                 } else if (method.isAnnotationPresent(AfterAll.class)) {
                     afterAllMethod = method;
                 } else if (method.isAnnotationPresent(Test.class)) {
                     try {
+                        Object newinstance = clazz.getDeclaredConstructor().newInstance();
                         beforeMethod.invoke(newinstance);
                         method.invoke(newinstance);
                         System.out.printf("%s - Test '%s' - passed %n", ++count, method.getName());
@@ -45,7 +46,7 @@ public class AnnotationsValidator {
                 method.setAccessible(false);
             }
         }
-        afterAllMethod.invoke(newinstance);
+        afterAllMethod.invoke(clazz.getDeclaredConstructor().newInstance());
         System.out.printf("%nResult : Total : %d, Passed: %d, Failed %d %n", count, passed, failed);
     }
 }
