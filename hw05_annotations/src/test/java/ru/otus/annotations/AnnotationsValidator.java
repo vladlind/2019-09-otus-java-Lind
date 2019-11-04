@@ -19,7 +19,10 @@ public class AnnotationsValidator {
         Method[] declaredMethods = clazz.getDeclaredMethods();
         AnnotatedMethods annotatedMethods = new AnnotatedMethods();
         annotatedMethods.fillFromMethodsArray(declaredMethods);
-        annotatedMethods.getBeforAllMethod().invoke(null);
+        try {
+            annotatedMethods.getBeforAllMethod().invoke(null);
+        } catch (NullPointerException e) {
+        }
         for (Method method : annotatedMethods.getTestMethods()){
             try {
                 Object newinstance = clazz.getDeclaredConstructor().newInstance();
@@ -34,7 +37,10 @@ public class AnnotationsValidator {
                 method.setAccessible(false);
             }
         }
+        try {
         annotatedMethods.getAfterAllMethod().invoke(null);
+        } catch (NullPointerException e) {
+        }
         System.out.printf("%nResult : Total : %d, Failed: %d, Passed %d %n", count, failed, (count-failed));
     }
 
