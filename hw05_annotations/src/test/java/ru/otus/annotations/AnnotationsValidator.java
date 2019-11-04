@@ -18,15 +18,15 @@ public class AnnotationsValidator {
         Class<?> clazz = HumanClassTest.class;
         Method[] declaredMethods = clazz.getDeclaredMethods();
         AnnotatedMethods annotatedMethods = new AnnotatedMethods();
-        annotatedMethods.getAnnotatedMethods(declaredMethods);
-        annotatedMethods.beforAllMethod.invoke(null);
-        for (Method method : annotatedMethods.testMethods){
+        annotatedMethods.fillFromMethodsArray(declaredMethods);
+        annotatedMethods.getBeforAllMethod().invoke(null);
+        for (Method method : annotatedMethods.getTestMethods()){
             try {
                 Object newinstance = clazz.getDeclaredConstructor().newInstance();
-                annotatedMethods.beforeMethod.invoke(newinstance);
+                annotatedMethods.getBeforeMethod().invoke(newinstance);
                 method.invoke(newinstance);
                 System.out.printf("%s - Test '%s' - passed %n", ++count, method.getName());
-                annotatedMethods.afterMethod.invoke(newinstance);
+                annotatedMethods.getAfterMethod().invoke(newinstance);
             } catch (Throwable ex) {
                 System.out.printf("%s - Test '%s' - failed: %s %n", ++count, method.getName(), ex.getCause());
                 failed++;
@@ -34,7 +34,7 @@ public class AnnotationsValidator {
                 method.setAccessible(false);
             }
         }
-        annotatedMethods.afterAllMethod.invoke(null);
+        annotatedMethods.getAfterAllMethod().invoke(null);
         System.out.printf("%nResult : Total : %d, Failed: %d, Passed %d %n", count, failed, (count-failed));
     }
 
