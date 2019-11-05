@@ -19,26 +19,33 @@ public class AnnotationsValidator {
         annotatedMethods.fillFromMethodsArray(declaredMethods);
         try {
             annotatedMethods.getBeforAllMethod().invoke(null);
+            for (Method method : annotatedMethods.getTestMethods()) {
+                try {
+                    Object newinstance = clazz.getDeclaredConstructor().newInstance();
+                    if (annotatedMethods.getBeforeMethod() != null) {
+                        annotatedMethods.getBeforeMethod().invoke(newinstance);
+                    }
+                    method.invoke(newinstance);
+                    System.out.printf("%s - Test '%s' - passed %n", ++count, method.getName());
+                    if (annotatedMethods.getAfterMethod() != null) {
+                        annotatedMethods.getAfterMethod().invoke(newinstance);
+                    }
+                } catch (Throwable ex) {
+                    System.out.printf("%s - Test '%s' - failed: %s %n", ++count, method.getName(), ex.getCause());
+                    failed++;
+                } finally {
+                    method.setAccessible(false);
+                }
+            }
         } catch (Throwable ex) {
-        }
-        for (Method method : annotatedMethods.getTestMethods()){
+            System.out.printf("BeforeAll method has thrown an exception - %s", ex.getCause());
+        } finally {
+            System.out.printf("%nResult : Total : %d, Failed: %d, Passed %d %n", count, failed, (count - failed));
             try {
-                Object newinstance = clazz.getDeclaredConstructor().newInstance();
-                annotatedMethods.getBeforeMethod().invoke(newinstance);
-                method.invoke(newinstance);
-                System.out.printf("%s - Test '%s' - passed %n", ++count, method.getName());
-                annotatedMethods.getAfterMethod().invoke(newinstance);
+                annotatedMethods.getAfterAllMethod().invoke(null);
             } catch (Throwable ex) {
-                System.out.printf("%s - Test '%s' - failed: %s %n", ++count, method.getName(), ex.getCause());
-                failed++;
-            } finally {
-                method.setAccessible(false);
+                System.out.printf("AfterAll method has thrown an exception - %s", ex.getCause());
             }
         }
-        try {
-            annotatedMethods.getAfterAllMethod().invoke(null);
-        } catch (Throwable ex) {
-        }
-        System.out.printf("%nResult : Total : %d, Failed: %d, Passed %d %n", count, failed, (count-failed));
     }
 }
