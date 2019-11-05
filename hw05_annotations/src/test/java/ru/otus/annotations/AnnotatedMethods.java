@@ -8,14 +8,13 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-@FieldDefaults(level = AccessLevel.PRIVATE)
 @Getter
 public class AnnotatedMethods {
 
-    Method beforeMethod = null;
-    Method afterMethod = null;
-    Method afterAllMethod = null;
-    Method beforAllMethod = null;
+    private Method beforeMethod = null;
+    private Method afterMethod = null;
+    private Method afterAllMethod = null;
+    private Method beforAllMethod = null;
     List<Method> testMethods = new ArrayList<Method>();
     protected void fillFromMethodsArray (Method[] declaredMethods) {
 
