@@ -1,8 +1,6 @@
 package ru.otus.annotations;
 
-import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.experimental.FieldDefaults;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
