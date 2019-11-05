@@ -4,7 +4,7 @@ package ru.otus.annotations;
 public class HumanClassTest {
     private HumanClass human;
 
-    @AfterAll
+   @AfterAll
     static void end() {
         System.out.println("ending class test");
     }

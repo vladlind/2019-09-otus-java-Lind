@@ -3,8 +3,6 @@ package ru.otus.annotations;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class AnnotationsValidator {
@@ -21,7 +19,7 @@ public class AnnotationsValidator {
         annotatedMethods.fillFromMethodsArray(declaredMethods);
         try {
             annotatedMethods.getBeforAllMethod().invoke(null);
-        } catch (NullPointerException e) {
+        } catch (Throwable ex) {
         }
         for (Method method : annotatedMethods.getTestMethods()){
             try {
@@ -38,10 +36,9 @@ public class AnnotationsValidator {
             }
         }
         try {
-        annotatedMethods.getAfterAllMethod().invoke(null);
-        } catch (NullPointerException e) {
+            annotatedMethods.getAfterAllMethod().invoke(null);
+        } catch (Throwable ex) {
         }
         System.out.printf("%nResult : Total : %d, Failed: %d, Passed %d %n", count, failed, (count-failed));
     }
-
 }
