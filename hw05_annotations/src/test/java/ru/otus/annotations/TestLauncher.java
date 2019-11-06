@@ -8,7 +8,7 @@ public class TestLauncher {
         Class<AnnotationsValidator> annotationsValidatorClass = AnnotationsValidator.class;
         Constructor<AnnotationsValidator> constructor = annotationsValidatorClass.getDeclaredConstructor(String.class);
         AnnotationsValidator annotationsValidator = constructor.newInstance("New test");
-
+        
         annotationsValidator.Process();
     }
 }

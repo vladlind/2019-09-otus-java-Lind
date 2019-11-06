@@ -11,7 +11,7 @@ public class AnnotationsValidator {
         System.out.println("Constructor: " + s);
     }
 
-    public void Process() throws IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException {
+    public void Process() throws IllegalAccessException, InvocationTargetException {
         int failed = 0, count = 0;
         Class<?> clazz = HumanClassTest.class;
         Method[] declaredMethods = clazz.getDeclaredMethods();
@@ -22,14 +22,10 @@ public class AnnotationsValidator {
             for (Method method : annotatedMethods.getTestMethods()) {
                 try {
                     Object newinstance = clazz.getDeclaredConstructor().newInstance();
-                    if (annotatedMethods.getBeforeMethod() != null) {
-                        annotatedMethods.getBeforeMethod().invoke(newinstance);
-                    }
-                    method.invoke(newinstance);
+                    invokeMethodIfNotNull(annotatedMethods.getBeforeMethod(), newinstance);
+                    invokeMethodIfNotNull(method, newinstance);
                     System.out.printf("%s - Test '%s' - passed %n", ++count, method.getName());
-                    if (annotatedMethods.getAfterMethod() != null) {
-                        annotatedMethods.getAfterMethod().invoke(newinstance);
-                    }
+                    invokeMethodIfNotNull(annotatedMethods.getAfterMethod(), newinstance);
                 } catch (Throwable ex) {
                     System.out.printf("%s - Test '%s' - failed: %s %n", ++count, method.getName(), ex.getCause());
                     failed++;
@@ -38,14 +34,18 @@ public class AnnotationsValidator {
                 }
             }
         } catch (Throwable ex) {
-            System.out.printf("BeforeAll method has thrown an exception - %s", ex.getCause());
+            System.out.println("Tests won't be run without beforeAll method!");
         } finally {
             System.out.printf("%nResult : Total : %d, Failed: %d, Passed %d %n", count, failed, (count - failed));
-            try {
-                annotatedMethods.getAfterAllMethod().invoke(null);
-            } catch (Throwable ex) {
-                System.out.printf("AfterAll method has thrown an exception - %s", ex.getCause());
+            invokeMethodIfNotNull(annotatedMethods.getAfterAllMethod(), null);
+        }
+    }
+        private void invokeMethodIfNotNull (Method method, Object newinstance) throws
+        InvocationTargetException, IllegalAccessException {
+            if (method != null) {
+                method.invoke(newinstance);
+            } else {
+                System.out.println("No method defined!");
             }
         }
     }
-}
