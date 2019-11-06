@@ -18,7 +18,7 @@ public class AnnotationsValidator {
         AnnotatedMethods annotatedMethods = new AnnotatedMethods();
         annotatedMethods.fillFromMethodsArray(declaredMethods);
         try {
-            annotatedMethods.getBeforAllMethod().invoke(null);
+            invokeMethodIfNotNull(annotatedMethods.getBeforAllMethod(), null);
             for (Method method : annotatedMethods.getTestMethods()) {
                 try {
                     Object newinstance = clazz.getDeclaredConstructor().newInstance();
@@ -34,7 +34,7 @@ public class AnnotationsValidator {
                 }
             }
         } catch (Throwable ex) {
-            System.out.println("Tests won't be run without beforeAll method!");
+            System.out.println("BeforeAll method has thrown an exception: "+ex);
         } finally {
             System.out.printf("%nResult : Total : %d, Failed: %d, Passed %d %n", count, failed, (count - failed));
             invokeMethodIfNotNull(annotatedMethods.getAfterAllMethod(), null);
