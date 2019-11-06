@@ -40,12 +40,13 @@ public class AnnotationsValidator {
             invokeMethodIfNotNull(annotatedMethods.getAfterAllMethod(), null);
         }
     }
-        private void invokeMethodIfNotNull (Method method, Object newinstance) throws
-        InvocationTargetException, IllegalAccessException {
-            if (method != null) {
-                method.invoke(newinstance);
-            } else {
-                System.out.println("No method defined!");
-            }
+
+    private void invokeMethodIfNotNull(Method method, Object newinstance) throws
+            InvocationTargetException, IllegalAccessException {
+        if (method != null) {
+            method.invoke(newinstance);
+        } else {
+            System.out.println("No method defined!");
         }
     }
+}
