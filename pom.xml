@@ -26,6 +26,8 @@
     <modules>
         <module>hw01_maven</module>
         <module>hw02_collections</module>
+        <module>hw03_gc</module>
+        <module>hw05_annotations</module>
     </modules>
 
     <properties>
@@ -33,6 +35,8 @@
         <maven.compiler.source>12</maven.compiler.source>
         <maven.compiler.target>12</maven.compiler.target>
         <com.google.guava.version>27.1-jre</com.google.guava.version>
+        <org.projectlombok.version>1.18.10</org.projectlombok.version>
+        <junit-jupiter.version>5.3.2</junit-jupiter.version>
         <my.variable>42</my.variable>
     </properties>
 
@@ -42,6 +46,18 @@
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
                 <version>${com.google.guava.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${org.projectlombok.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-engine</artifactId>
+                <version>${junit-jupiter.version}</version>
+                <scope>test</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>

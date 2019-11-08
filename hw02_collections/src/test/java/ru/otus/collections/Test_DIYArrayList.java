@@ -2,15 +2,11 @@ package ru.otus.collections;
 
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTimeout;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static java.time.Duration.ofSeconds;
 
 @DisplayName("Test Class DIY")
 class Test_DIYArrayList {
