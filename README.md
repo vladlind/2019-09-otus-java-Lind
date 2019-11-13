@@ -5,6 +5,7 @@ Otus "Java Developer" course repo for homework
 1. hw01_maven
 2. hw02_collections
 3. hw03_gc
+4. hw04_bytecode
 5. hw05_annotations
 
 Владимир Линд
