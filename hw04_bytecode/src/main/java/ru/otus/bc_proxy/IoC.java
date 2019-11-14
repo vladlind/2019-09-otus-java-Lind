@@ -33,13 +33,13 @@ class IoC {
                 } else {
                     annotatedMethodMap.put(method, false);
                 }
-                return method.invoke(myClass, args);
             } else {
                 if (annotatedMethodMap.get(method)) {
                     System.out.println("executed method (cached): " + method.getName() + ", " + "param: " + args[0]);
                 }
-                return method.invoke(myClass, args);
+
             }
+            return method.invoke(myClass, args);
         }
     }
 }
