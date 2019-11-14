@@ -15,6 +15,9 @@ public class Demo {
         myClass.calculation(8);
         myClass.newcalculation(9);
 
+        myClass.calculation(10);
+        myClass.newcalculation(11);
+
         Instant end = Instant.now();
         Duration timeElapsed = Duration.between(start, end);
         System.out.println("Time taken: "+ timeElapsed.toMillis() +" milliseconds");
