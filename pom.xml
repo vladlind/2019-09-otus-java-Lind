@@ -29,6 +29,7 @@
         <module>hw03_gc</module>
         <module>hw05_annotations</module>
         <module>hw04_bytecode</module>
+        <module>hw06_solid</module>
     </modules>
 
     <properties>
