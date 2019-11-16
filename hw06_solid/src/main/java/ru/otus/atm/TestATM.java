@@ -6,7 +6,7 @@ public class TestATM {
         ATM atm  = new ATM();
         atm.insertMoney(banknotes);
         System.out.println(atm.totalMoneyAtm());
-        atm.getMoney(1000);
+        atm.getMoney(1120);
         atm.getAllMoney();
 
     }
