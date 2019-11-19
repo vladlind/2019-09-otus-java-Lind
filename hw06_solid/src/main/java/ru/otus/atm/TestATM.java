@@ -1,17 +1,15 @@
 package ru.otus.atm;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class TestATM {
     public static void main(String[] args) {
-        Nominal[] banknotes = {new Hundred(), new Hundred(), new Ten(), new Ten(), new Fifty(), new Ten(), new Thousand(), new Thousand()};
-        Nominal[] bunchOfTens = new Ten[100];
-        Arrays.fill(bunchOfTens, new Ten());
+        Nominals[] newsum = {Nominals.TEN, Nominals.HUNDRED, Nominals.FIFTY, Nominals.THOUSAND, Nominals.THOUSAND, Nominals.HUNDRED};
         ATM atm = new ATM();
-        atm.insertMoney(banknotes);
-        atm.insertMoney(bunchOfTens);
+        atm.insertMoney(newsum);
         System.out.println(atm.totalMoneyAtm());
-        atm.getMoney(220);
+        atm.getMoney(30);
         System.out.println("----------------");
         atm.getMoney(60);
         System.out.println("----------------");
@@ -21,7 +19,7 @@ public class TestATM {
         System.out.println("----------------");
         atm.getMoney(111);
         System.out.println("----------------");
-        atm.getAllMoney();
-        atm.getAllMoney();
+        atm.printAllMoney();
+        atm.printAllMoney();
     }
 }

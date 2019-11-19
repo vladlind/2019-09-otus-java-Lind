@@ -7,7 +7,7 @@ class ATM {
 
     private Cell cell = new Cell();
 
-    void insertMoney(Nominal[] banknotes) {
+    void insertMoney(Nominals[] banknotes) {
         Arrays.stream(banknotes).forEach(this::moneyStoreHelper);
     }
 
@@ -22,7 +22,7 @@ class ATM {
         }
     }
 
-    void getAllMoney() {
+    void printAllMoney() {
         if (totalMoneyAtm() != 0) {
             System.out.println("Get remaining money: " + totalMoneyAtm());
             cell.cellForTens.clear();
@@ -38,15 +38,15 @@ class ATM {
         return (cell.cellForTens.size() * 10 + cell.cellForFifties.size() * 50 + cell.cellForHundreds.size() * 100 + cell.cellForThousands.size() * 1000);
     }
 
-    private void moneyStoreHelper(Nominal banknote) {
-        if (banknote instanceof Ten) {
-            cell.cellForTens.add((Ten) banknote);
-        } else if (banknote instanceof Fifty) {
-            cell.cellForFifties.add((Fifty) banknote);
-        } else if (banknote instanceof Hundred) {
-            cell.cellForHundreds.add((Hundred) banknote);
-        } else if (banknote instanceof Thousand) {
-            cell.cellForThousands.add((Thousand) banknote);
+    private void moneyStoreHelper(Nominals banknote) {
+        if (banknote.equals(Nominals.TEN)) {
+            cell.cellForTens.add(banknote);
+        } else if (banknote.equals(Nominals.FIFTY)) {
+            cell.cellForFifties.add(banknote);
+        } else if (banknote.equals(Nominals.HUNDRED)) {
+            cell.cellForHundreds.add(banknote);
+        } else if (banknote.equals(Nominals.THOUSAND)) {
+            cell.cellForThousands.add(banknote);
         } else {
             throw new RuntimeException("Not a valid banknote!");
         }
