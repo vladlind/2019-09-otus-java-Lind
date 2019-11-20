@@ -1,17 +1,18 @@
 package ru.otus.atm;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 class ATM {
 
     private Cell cell = new Cell();
 
     void insertMoney(Nominals[] banknotes) {
-        Arrays.stream(banknotes).forEach(this::moneyStoreHelper);
+        for (Nominals banknote : banknotes) {
+            moneyStoreHelper(banknote);
+        }
     }
 
-    void getMoney(int sum) {
+    void printMoney(int sum) {
         if (sum % 10 == 0) {
             sum = moneyGetHelper(sum, 1000, cell.cellForThousands);
             sum = moneyGetHelper(sum, 100, cell.cellForHundreds);
