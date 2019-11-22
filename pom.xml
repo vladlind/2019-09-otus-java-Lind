@@ -30,6 +30,7 @@
         <module>hw05_annotations</module>
         <module>hw04_bytecode</module>
         <module>hw06_solid</module>
+        <module>hw07_patterns</module>
     </modules>
 
     <properties>

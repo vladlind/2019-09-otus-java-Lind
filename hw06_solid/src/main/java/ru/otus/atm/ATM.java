@@ -1,8 +1,11 @@
 package ru.otus.atm;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 class ATM {
+
 
     private Cell cell = new Cell();
 
