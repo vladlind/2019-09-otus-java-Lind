@@ -1,23 +1,23 @@
 package ru.otus.ATMstate;
 
-import ru.otus.atm.ATM;
+import ru.otus.atm.ATMDept;
 
 /**
  * @author sergey
  * created on 11.09.18.
  */
 public class State {
-    private final ATM atm;
+    private final ATMDept atmdept;
 
-    State(ATM atm) {
-        this.atm = atm;
+    State(ATMDept atmdept) {
+        this.atmdept = atmdept;
     }
 
-    ATM getAtm() {
-        return atm;
+    private ATMDept getAtmdept() {
+        return atmdept;
     }
 
     State(State state) {
-        this.atm = state.getAtm();
+        this.atmdept = state.getAtmdept();
     }
 }

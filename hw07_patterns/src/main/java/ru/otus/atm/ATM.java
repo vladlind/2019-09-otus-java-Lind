@@ -4,11 +4,11 @@ import ru.otus.ATMstate.Originator;
 
 import java.util.EnumMap;
 
-public class ATM {
+class ATM {
 
     final Cells cells;
 
-    public ATM(Cells cells) {
+    ATM(Cells cells) {
         this.cells = cells;
         Originator originator = new Originator();
     }
