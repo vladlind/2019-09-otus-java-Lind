@@ -1,7 +1,5 @@
 package ru.otus.atm;
 
-import lombok.Getter;
-
 import java.util.EnumMap;
 import java.util.EnumSet;
 
@@ -9,34 +7,44 @@ class Cells {
 
     public enum Nominals {
         TEN(10),
-        FIFTY (50),
+        FIFTY(50),
         HUNDRED(100),
         THOUSAND(1000);
 
-        @Getter
         private final Integer label;
 
         Nominals(int label) {
             this.label = label;
         }
 
-        public static Nominals getEnumByInt(int value){
-            for(Nominals e : Nominals.values()){
-                if(value == e.label) return e;
+        static Nominals getEnumByInt(int value) {
+            for (Nominals e : Nominals.values()) {
+                if (value == e.getLabel()) return e;
             }
             return null;
+        }
+
+        int getLabel() {
+            return label;
         }
     }
 
     final EnumMap cellsmap;
 
-    Cells() {
-        this.cellsmap = createCells();
+    final int nominalscount;
+
+    public EnumMap getCellsmap() {
+        return cellsmap;
     }
 
-    private EnumMap createCells() {
+    Cells(int nominalscount) {
+        this.cellsmap = createCells(nominalscount);
+        this.nominalscount = nominalscount;
+    }
+
+    private EnumMap createCells(int nominalscount) {
         EnumMap<Nominals, Integer> cellsmap = new EnumMap<>(Nominals.class);
-        EnumSet.allOf(Nominals.class).forEach(nominal -> cellsmap.put(nominal, 0));
+        EnumSet.allOf(Nominals.class).forEach(nominal -> cellsmap.put(nominal, nominalscount));
         return cellsmap;
     }
 }

@@ -1,29 +1,39 @@
 package ru.otus.atm;
 
-import ru.otus.ATMstate.Originator;
-
 import java.util.EnumMap;
 
-class ATM {
+class ATM implements Cloneable {
 
     final Cells cells;
 
-    ATM(Cells cells) {
+    private String atmname;
+
+    String getAtmname() {
+        return atmname;
+    }
+
+    @Override
+    public ATM clone() {
+        return new ATM(new Cells(cells.nominalscount), atmname);
+    }
+
+    ATM(Cells cells, String atmname) {
         this.cells = cells;
-        Originator originator = new Originator();
+        this.atmname = atmname;
     }
 
     void insertMoney(Integer nominalvalue, Integer nominalcount) {
         Cells.Nominals nominal = Cells.Nominals.getEnumByInt(nominalvalue);
         if (nominal != null) {
-            cells.cellsmap.put(nominal, nominalcount);
+            cells.cellsmap.put(nominal, cells.nominalscount + nominalcount);
         }
     }
-    void getMoney(Integer sum) {
-        sum = moneyGetHelper(sum,1000, cells.cellsmap);
-        sum = moneyGetHelper(sum,100, cells.cellsmap);
-        sum = moneyGetHelper(sum,50, cells.cellsmap);
-        sum = moneyGetHelper(sum,10, cells.cellsmap);
+
+    void printMoney(Integer sum) {
+        sum = moneyGetHelper(sum, 1000, cells.cellsmap);
+        sum = moneyGetHelper(sum, 100, cells.cellsmap);
+        sum = moneyGetHelper(sum, 50, cells.cellsmap);
+        sum = moneyGetHelper(sum, 10, cells.cellsmap);
     }
 
     void printAllMoney() {
@@ -41,7 +51,7 @@ class ATM {
     int totalMoneyAtm() {
         int totalsum = 0;
         for (Cells.Nominals e : Cells.Nominals.values()) {
-            totalsum = totalsum + e.getLabel() * (int)cells.cellsmap.get(e);
+            totalsum = totalsum + e.getLabel() * (int) cells.cellsmap.get(e);
         }
         return totalsum;
     }
@@ -50,9 +60,9 @@ class ATM {
         if (sum / banknotevalue >= 1) {
             int count = sum / banknotevalue;
             Cells.Nominals nominal = Cells.Nominals.getEnumByInt(banknotevalue);
-            if (cellmap.get(nominal)>= count) {
+            if (cellmap.get(nominal) >= count) {
                 sum = sum - banknotevalue * count;
-                cellmap.put(nominal, cellmap.get(nominal)- count);
+                cellmap.put(nominal, cellmap.get(nominal) - count);
                 System.out.println("Take " + Cells.Nominals.getEnumByInt(banknotevalue) + "'s: " + count);
             } else {
                 System.out.println("Not enough " + banknotevalue + " banknotes in ATM!");
