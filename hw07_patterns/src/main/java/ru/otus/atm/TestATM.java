@@ -32,6 +32,8 @@ public class TestATM {
         System.out.println("-------------");
         atmDept.bulkDoCommand(new PrintAllMoney());
         System.out.println("-------------");
+        atmDept.bulkDoCommand(new ResetATM());
+        System.out.println("-------------");
         atmDept.bulkDoCommand(new GetATMname());
 
     }
