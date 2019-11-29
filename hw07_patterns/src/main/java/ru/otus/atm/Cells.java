@@ -3,7 +3,7 @@ package ru.otus.atm;
 import java.util.EnumMap;
 import java.util.EnumSet;
 
-class Cells {
+public class Cells {
 
     public enum Nominals {
         TEN(10),
@@ -17,21 +17,21 @@ class Cells {
             this.label = label;
         }
 
-        static Nominals getEnumByInt(int value) {
+        public static Nominals getEnumByInt(int value) {
             for (Nominals e : Nominals.values()) {
                 if (value == e.getLabel()) return e;
             }
             return null;
         }
 
-        int getLabel() {
+        public int getLabel() {
             return label;
         }
     }
 
-    final EnumMap cellsmap;
+    public final EnumMap cellsmap;
 
-    final int nominalscount;
+    public final int nominalscount;
 
     public EnumMap getCellsmap() {
         return cellsmap;

@@ -1,9 +1,11 @@
 package ru.otus.atm;
 
+import ru.otus.atm.commands.Command;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class ATMDept implements Command {
+public class ATMDept {
     private final List<ATM> atms = new ArrayList<>();
 
     void createATM(String atmname, int nominalscount) {
@@ -20,8 +22,7 @@ public class ATMDept implements Command {
         atms.remove(atm);
     }
 
-    @Override
-    public void sendCommand(String command) {
+    void bulkDoCommand (Command command){
         atms.forEach(atm -> atm.notify(command));
     }
 }
