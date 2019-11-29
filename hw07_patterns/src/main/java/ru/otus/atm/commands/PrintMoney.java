@@ -7,7 +7,7 @@ import java.util.EnumMap;
 
 public class PrintMoney implements Command{
 
-    public int sum;
+    private int sum;
 
     public  PrintMoney(int sum) {
         this.sum = sum;

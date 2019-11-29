@@ -5,9 +5,9 @@ import ru.otus.atm.Cells;
 
 public class InsertMoney implements Command {
 
-    int nominalcount;
+    private int nominalcount;
 
-    int nominalvalue;
+    private int nominalvalue;
 
     public InsertMoney(int nominalvalue, int nominalcount) {
         this.nominalcount = nominalcount;
