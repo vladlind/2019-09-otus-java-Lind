@@ -2,11 +2,8 @@ package ru.otus.atm;
 
 import ru.otus.atm.commands.Command;
 
-import java.util.ArrayList;
-import java.util.EnumMap;
-import java.util.List;
 
-public class ATM implements Listener {
+public class ATM implements Listener, Cloneable {
 
     public Cells cells;
 

@@ -1,9 +1,6 @@
 package ru.otus.atm;
 
-import ru.otus.atm.commands.InsertMoney;
-import ru.otus.atm.commands.PrintAllMoney;
-import ru.otus.atm.commands.PrintMoney;
-import ru.otus.atm.commands.ResetATM;
+import ru.otus.atm.commands.*;
 
 public class TestATM {
     public static void main(String[] args) {
@@ -35,7 +32,7 @@ public class TestATM {
         System.out.println("-------------");
         atmDept.bulkDoCommand(new PrintAllMoney());
         System.out.println("-------------");
-        atmDept.bulkDoCommand(new ResetATM());
+        atmDept.bulkDoCommand(new GetATMname());
 
     }
 }
