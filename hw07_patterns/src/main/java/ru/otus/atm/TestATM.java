@@ -32,6 +32,11 @@ public class TestATM {
         System.out.println("-------------");
         atmDept.bulkDoCommand(new PrintAllMoney());
         System.out.println("-------------");
+        //creating command object and storing command execution result in a object field.
+        ResetATM resetatm = new ResetATM();
+        atmDept.getATM(0).notify(resetatm);
+        System.out.println(resetatm.getReturncells().getCellsmap());
+        System.out.println("-------------");
         atmDept.bulkDoCommand(new ResetATM());
         System.out.println("-------------");
         atmDept.bulkDoCommand(new GetATMname());

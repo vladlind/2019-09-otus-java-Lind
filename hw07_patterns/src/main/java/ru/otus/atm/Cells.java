@@ -2,6 +2,7 @@ package ru.otus.atm;
 
 import java.util.EnumMap;
 import java.util.EnumSet;
+import java.util.stream.Collectors;
 
 public class Cells {
 
