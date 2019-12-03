@@ -7,5 +7,7 @@ Otus "Java Developer" course repo for homework
 3. hw03_gc
 4. hw04_bytecode
 5. hw05_annotations
+6. hw06_solid
+7. hw07_patterns
 
 Владимир Линд
