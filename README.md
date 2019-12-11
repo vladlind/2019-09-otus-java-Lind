@@ -9,5 +9,6 @@ Otus "Java Developer" course repo for homework
 5. hw05_annotations
 6. hw06_solid
 7. hw07_patterns
+8. hw08_myjson
 
 Владимир Линд

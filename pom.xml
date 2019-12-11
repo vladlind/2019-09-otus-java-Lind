@@ -38,6 +38,7 @@
         <module>hw04_bytecode</module>
         <module>hw06_solid</module>
         <module>hw07_patterns</module>
+        <module>hw08_myjson</module>
     </modules>
 
     <properties>
