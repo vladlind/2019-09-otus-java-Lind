@@ -39,6 +39,7 @@
         <module>hw06_solid</module>
         <module>hw07_patterns</module>
         <module>hw08_myjson</module>
+        <module>hw09_jdbc</module>
     </modules>
 
     <properties>
