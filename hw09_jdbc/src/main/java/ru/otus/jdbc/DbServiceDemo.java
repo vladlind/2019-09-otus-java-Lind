@@ -22,10 +22,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Optional;
 
-/**
- * @author sergey
- * created on 03.02.19.
- */
+
 public class DbServiceDemo {
   private static Logger logger = LoggerFactory.getLogger(DbServiceDemo.class);
 
@@ -42,11 +39,11 @@ public class DbServiceDemo {
     UserDao userDao = new UserDaoJdbc(sessionManagerJdbc, dbExecutor);
     DBServiceUser dbServiceUser = new DbServiceUserImpl(userDao);
 
-    long id = dbServiceUser.saveUser(new User(0, "dbServiceUser", 8));
+    long id = dbServiceUser.saveUser(new User("dbServiceUser", 8));
     Optional<User> user1 = dbServiceUser.getUser(id);
-    long id2 = dbServiceUser.saveUser(new User(0, "dbServiceUser2", 9));
-    Optional<User> user2 = dbServiceUser.getUser(5);
-    dbServiceUser.updateUser(new User(0, "dbServiceUser3", 18), id2);
+    long id2 = dbServiceUser.saveUser(new User("dbServiceUser2", 9));
+    Optional<User> user2 = dbServiceUser.getUser(id2);
+    dbServiceUser.updateUser(new User( "dbServiceUser3", 18), id2);
     Optional<User> user3 = dbServiceUser.getUser(id2);
 
     System.out.println("----------------");
@@ -55,22 +52,10 @@ public class DbServiceDemo {
     AccountDao accountDao = new AccountDaoJdbc(sessionManagerJdbc, dbExecutor2);
     DbServiceAccount dbServiceAccount =  new DbServiceAccountImpl(accountDao);
 
-    long no = dbServiceAccount.saveAccount(new Account(0, "accounttype", 10 ));
+    long no = dbServiceAccount.saveAccount(new Account("accounttype", 10 ));
     Optional<Account> account = dbServiceAccount.getAccount(no);
-    dbServiceAccount.updateAccount(new Account(0,"accounttype2", 100), no);
+    dbServiceAccount.updateAccount(new Account("accounttype2", 100), no);
     Optional<Account> account2 = dbServiceAccount.getAccount(no);
-
-//    System.out.println(user);
-//    user.ifPresentOrElse(
-//        crUser -> logger.info("created user, name:{}", crUser.getName()),
-//        () -> logger.info("user was not created")
-//    );
-//
-//    System.out.println(account);
-//    account.ifPresentOrElse(
-//            crAcc -> logger.info("created account, name:{}", crAcc.getType()),
-//            () -> logger.info("account was not created")
-//    );
 
   }
 

@@ -34,7 +34,7 @@ public class AccountDaoJdbc implements AccountDao {
             return dbExecutor.selectRecord(getConnection(), sqlQueryGenerator.getSqlSelect(), id, resultSet -> {
                 try {
                     if (resultSet.next()) {
-                        return new Account(resultSet.getLong("no"), resultSet.getString("type"), resultSet.getInt("rest"));
+                        return new Account( resultSet.getString("type"), resultSet.getInt("rest"));
                     }
                 } catch (SQLException e) {
                     logger.error(e.getMessage(), e);

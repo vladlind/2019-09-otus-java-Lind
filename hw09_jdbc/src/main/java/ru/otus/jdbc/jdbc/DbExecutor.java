@@ -8,10 +8,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
-/**
- * @author sergey
- * created on 03.02.19.
- */
+
 public class DbExecutor<T> {
   private static Logger logger = LoggerFactory.getLogger(DbExecutor.class);
 
@@ -52,7 +49,6 @@ public class DbExecutor<T> {
       pst.executeUpdate();
       try (ResultSet rs = pst.getGeneratedKeys()) {
         rs.next();
-        //return rs.getInt(1);
       }
     } catch (SQLException ex) {
       connection.rollback(savePoint);

@@ -34,7 +34,7 @@ public class UserDaoJdbc implements UserDao {
       return dbExecutor.selectRecord(getConnection(), sqlQueryGenerator.getSqlSelect(), id, resultSet -> {
         try {
           if (resultSet.next()) {
-            return new User(resultSet.getLong("id"), resultSet.getString("name"), resultSet.getInt("age"));
+            return new User( resultSet.getString("name"), resultSet.getInt("age"));
           }
         } catch (SQLException e) {
           logger.error(e.getMessage(), e);
