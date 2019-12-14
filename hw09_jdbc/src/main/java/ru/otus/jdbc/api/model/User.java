@@ -8,12 +8,17 @@ import ru.otus.jdbc.api.dao.Id;
  */
 public class User {
   @Id
-  private final long id = 0;
+  private long id = 0;
   private final String name;
   private final int age;
 
-  public User( String name, int age) {
-    //this.id = id;
+  public User(String name, int age) {
+    this.name = name;
+    this.age = age;
+  }
+
+  public User(long id, String name, int age) {
+    this.id = id;
     this.name = name;
     this.age = age;
   }

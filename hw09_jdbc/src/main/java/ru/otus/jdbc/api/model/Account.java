@@ -5,7 +5,7 @@ import ru.otus.jdbc.api.dao.Id;
 
 public class Account {
   @Id
-  private final long no = 0;
+  private long no;
   private final String type;
   private final double rest;
 
@@ -26,6 +26,11 @@ public class Account {
     this.rest = rest;
   }
 
+  public Account(long no, String type, double rest) {
+    this.no = no;
+    this.type = type;
+    this.rest = rest;
+  }
 
   @Override
   public String toString() {

@@ -56,6 +56,8 @@ public class DbServiceDemo {
     Optional<Account> account = dbServiceAccount.getAccount(no);
     dbServiceAccount.updateAccount(new Account("accounttype2", 100), no);
     Optional<Account> account2 = dbServiceAccount.getAccount(no);
+    long no2 = dbServiceAccount.saveAccount(new Account("accounttype", 10 ));
+    Optional<Account> account3 = dbServiceAccount.getAccount(no2);
 
   }
 
