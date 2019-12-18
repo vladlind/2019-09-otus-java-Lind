@@ -21,7 +21,7 @@ public class DbServiceDemo {
   private static Logger logger = LoggerFactory.getLogger(DbServiceDemo.class);
 
   public static void main(String[] args) {
-    // Все главное см в тестах
+
     SessionFactory sessionFactory = HibernateUtils.buildSessionFactory
             ("hibernate.cfg.xml", User.class, AddressDataSet.class, PhoneDataSet.class);
 
@@ -43,19 +43,28 @@ public class DbServiceDemo {
     phone1.setNumber("1111");
     phone2.setNumber("2222");
 
-    Set<PhoneDataSet> phoneDataSets = new HashSet<PhoneDataSet>();
+    PhoneDataSet phone3 = new PhoneDataSet();
+    PhoneDataSet phone4 = new PhoneDataSet();
+    phone3.setNumber("1111");
+    phone4.setNumber("2222");
+
+    Set<PhoneDataSet> phoneDataSets = new HashSet<>();
     phoneDataSets.add(phone1);
     phoneDataSets.add(phone2);
+
+    Set<PhoneDataSet> phoneDataSets2 = new HashSet<>();
+    phoneDataSets2.add(phone3);
+    phoneDataSets2.add(phone4);
 
     user1.setAddressDataSet(address1);
     user1.setPhoneDataSetSet(phoneDataSets);
     user2.setAddressDataSet(address2);
-    user2.setPhoneDataSetSet(phoneDataSets);
+    user2.setPhoneDataSetSet(phoneDataSets2);
 
     long id1 = dbServiceUser.saveUser(user1);
-    Optional<User> mayBeCreatedUser1 = dbServiceUser.getUser(id1);
-
     long id2 = dbServiceUser.saveUser(user2);
+
+    Optional<User> mayBeCreatedUser1 = dbServiceUser.getUser(id1);
     Optional<User> mayBeCreatedUser2 = dbServiceUser.getUser(id2);
 
   }
