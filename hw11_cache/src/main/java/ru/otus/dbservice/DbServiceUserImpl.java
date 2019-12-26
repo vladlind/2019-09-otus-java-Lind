@@ -18,12 +18,11 @@ public class DbServiceUserImpl implements DBServiceUser {
 
   private final UserDao userDao;
 
-  private HwCache<Long, User> cache = new MyCache<>();
-  private HwListener<Long, User> listenerUser =
-          (id, user, action) -> logger.info("Cache - key:{}, value:{}, action: {}", id.toString(), user.getName(), action);
+  private final HwCache<Long, User> userCache;
 
-  DbServiceUserImpl(UserDao userDao) {
+  DbServiceUserImpl(UserDao userDao, HwCache<Long, User> userCache) {
     this.userDao = userDao;
+    this.userCache = userCache;
   }
 
   @Override
@@ -50,16 +49,13 @@ public class DbServiceUserImpl implements DBServiceUser {
     try (SessionManager sessionManager = userDao.getSessionManagerJdbc()) {
       sessionManager.beginSession();
       try {
-        User cachedUser = cache.get(id);
+        User cachedUser = userCache.get(id);
         if (cachedUser == null) {
-          cache.addListener(listenerUser);
           Optional<User> userOptional = userDao.findById(id);
-          userOptional.ifPresent(user -> cache.put(id, user));
-          cache.removeListener(listenerUser);
+          userOptional.ifPresent(user -> userCache.put(id, user));
           logger.info("user: {}", userOptional.orElse(null));
           return userOptional;
         } else {
-          logger.info("user from cache: {}", cachedUser.getName());
           return Optional.of(cachedUser);
         }
       } catch (Exception e) {
@@ -75,17 +71,16 @@ public class DbServiceUserImpl implements DBServiceUser {
     try (SessionManager sessionManager = userDao.getSessionManagerJdbc()) {
       sessionManager.beginSession();
       try {
-        cache.addListener(listenerUser);
         userDao.updateUser(user, id);
         sessionManager.commitSession();
 
         logger.info("updated user: {}", id);
-        User cachedUser = cache.get(id);
+        User cachedUser = userCache.get(id);
         if (cachedUser != null) {
-          cache.remove(id);
+          userCache.remove(id);
         }
-        cache.put(id, user);
-        cache.removeListener(listenerUser);
+        userCache.put(id, user);
+
       } catch (Exception e) {
         logger.error(e.getMessage(), e);
         sessionManager.rollbackSession();

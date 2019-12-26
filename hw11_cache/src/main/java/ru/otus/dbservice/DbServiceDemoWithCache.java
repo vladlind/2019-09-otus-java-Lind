@@ -1,5 +1,10 @@
 package ru.otus.dbservice;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import ru.otus.cache.HwCache;
+import ru.otus.cache.HwListener;
+import ru.otus.cache.MyCache;
 import ru.otus.jdbc.api.dao.UserDao;
 import ru.otus.jdbc.api.model.User;
 import ru.otus.jdbc.api.service.DBServiceUser;
@@ -17,27 +22,42 @@ import java.util.Optional;
 
 public class DbServiceDemoWithCache {
 
+  private static Logger logger = LoggerFactory.getLogger(DbServiceDemoWithCache.class);
+
   public static void main(String[] args) throws Exception {
     DataSource dataSource = new DataSourceH2();
     DbServiceDemoWithCache demo = new DbServiceDemoWithCache();
 
     demo.createTableUser(dataSource);
 
+    HwCache<Long, User> userCache = new MyCache<>();
+    HwListener<Long, User> listenerUser =
+            (id, user, action) -> logger.info("Listener Cache - key:{}, value:{}, action: {}", id.toString(), user.getName(), action);
+    HwListener<Long, User> listenerUser2 =
+            (id, user, action) -> logger.info("Listener2 Cache - key:{}, value:{}, action: {}", id.toString(), user.getAge(), action);
+    userCache.addListener(listenerUser);
+    userCache.addListener(listenerUser2);
+
     SessionManagerJdbc sessionManagerJdbc = new SessionManagerJdbc(dataSource);
 
     DbExecutor<User> dbExecutor = new DbExecutor<>();
     UserDao userDao = new UserDaoJdbc(sessionManagerJdbc, dbExecutor);
-    DBServiceUser dbServiceUser = new DbServiceUserImpl(userDao);
+    DBServiceUser dbServiceUser = new DbServiceUserImpl(userDao, userCache);
 
     long id = dbServiceUser.saveUser(new User("dbServiceUser", 8));
     Optional<User> user1 = dbServiceUser.getUser(id);
     System.out.println("----------");
+    Optional<User> user1a = dbServiceUser.getUser(id);
+    System.out.println("----------");
     long id2 = dbServiceUser.saveUser(new User("dbServiceUser2", 9));
     Optional<User> user2 = dbServiceUser.getUser(id2);
+    System.out.println("----------");
     dbServiceUser.updateUser(new User( "dbServiceUser3", 18), id2);
     System.out.println("----------");
     Optional<User> user3 = dbServiceUser.getUser(id2);
 
+    userCache.removeListener(listenerUser);
+    userCache.removeListener(listenerUser2);
   }
 
   private void createTableUser(DataSource dataSource) throws SQLException {
