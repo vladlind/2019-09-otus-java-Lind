@@ -49,15 +49,11 @@ public class DbServiceUserImpl implements DBServiceUser {
     try (SessionManager sessionManager = userDao.getSessionManagerJdbc()) {
       sessionManager.beginSession();
       try {
-        User cachedUser = userCache.get(id);
-        if (cachedUser == null) {
-          Optional<User> userOptional = userDao.findById(id);
-          userOptional.ifPresent(user -> userCache.put(id, user));
-          logger.info("user: {}", userOptional.orElse(null));
-          return userOptional;
-        } else {
-          return Optional.of(cachedUser);
-        }
+        return Optional.ofNullable(userCache.get(id)).or(() -> userDao.findById(id).map(u -> {
+          logger.info("user: {}", u);
+          userCache.put(u.getId(), u);
+          return u;
+        }));
       } catch (Exception e) {
         logger.error(e.getMessage(), e);
         sessionManager.rollbackSession();
@@ -75,11 +71,7 @@ public class DbServiceUserImpl implements DBServiceUser {
         sessionManager.commitSession();
 
         logger.info("updated user: {}", id);
-        User cachedUser = userCache.get(id);
-        if (cachedUser != null) {
-          userCache.remove(id);
-        }
-        userCache.put(id, user);
+        Optional.ofNullable(userCache.get(id)).ifPresent(u -> userCache.put(u.getId(), u));
 
       } catch (Exception e) {
         logger.error(e.getMessage(), e);
