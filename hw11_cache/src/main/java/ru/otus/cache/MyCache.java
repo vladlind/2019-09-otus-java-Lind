@@ -7,8 +7,8 @@ import java.util.WeakHashMap;
 
 public class MyCache<K, V> implements HwCache<K, V> {
 
-  private final WeakHashMap<K, V> cache = new WeakHashMap();
-  private final List<HwListener> listeners = new ArrayList();
+  private final WeakHashMap<K, V> cache = new WeakHashMap<>();
+  private final List<HwListener> listeners = new ArrayList<>();
 
 
   @Override
