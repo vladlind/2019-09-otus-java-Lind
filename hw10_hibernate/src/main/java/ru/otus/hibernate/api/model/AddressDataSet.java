@@ -17,6 +17,10 @@ public class AddressDataSet {
     @OneToOne(mappedBy="addressDataSet")
     private User user;
 
+    public AddressDataSet() {};
+
+    public AddressDataSet(String street) { setStreet(street);}
+
     public void setStreet(String street) {
         this.street = street;
     }

@@ -9,36 +9,19 @@ import java.util.Set;
 public class User {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE)
-  @Column(name = "id")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "user_id")
   private long id;
 
   @Column(name = "name")
   private String name;
 
-  public AddressDataSet getAddressDataSet() {
-    return addressDataSet;
-  }
-
-  public void setAddressDataSet(AddressDataSet addressDataSet) {
-    this.addressDataSet = addressDataSet;
-  }
-
-  public Set<PhoneDataSet> getPhoneDataSetSet() {
-    return phoneDataSetSet;
-  }
-
-  public void setPhoneDataSetSet(Set<PhoneDataSet> phoneDataSetSet) {
-    this.phoneDataSetSet = phoneDataSetSet;
-  }
-
   @OneToOne(targetEntity = AddressDataSet.class, cascade = CascadeType.ALL)
   @JoinColumn(name = "address_id")
   private AddressDataSet addressDataSet;
 
-  @OneToMany(targetEntity = PhoneDataSet.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  @JoinColumn(name="user_id")
-  private Set<PhoneDataSet> phoneDataSetSet;
+  @OneToMany(targetEntity = PhoneDataSet.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+  private Set<PhoneDataSet> phoneDataSet;
 
   public User() {
   }
@@ -58,6 +41,22 @@ public class User {
 
   public void setName(String name) {
     this.name = name;
+  }
+
+  public AddressDataSet getAddressDataSet() {
+    return addressDataSet;
+  }
+
+  public void setAddressDataSet(AddressDataSet addressDataSet) {
+    this.addressDataSet = addressDataSet;
+  }
+
+  public Set<PhoneDataSet> getPhoneDataSet() {
+    return phoneDataSet;
+  }
+
+  public void setPhoneDataSet(Set<PhoneDataSet> phoneDataSet) {
+    this.phoneDataSet = phoneDataSet;
   }
 
   @Override

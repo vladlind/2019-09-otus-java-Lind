@@ -15,9 +15,15 @@ public class PhoneDataSet {
     private String number;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name="user_id")
     private User user;
 
-    public PhoneDataSet(){}
+    public PhoneDataSet() {
+    }
+
+    public PhoneDataSet(String number){
+        setNumber(number);
+    }
 
     public String getNumber() {
         return number;

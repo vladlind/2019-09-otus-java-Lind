@@ -29,43 +29,60 @@ public class DbServiceDemo {
     UserDao userDao = new UserDaoHibernate(sessionManager);
     DBServiceUser dbServiceUser = new DbServiceUserImpl(userDao);
 
-    User user1 = new User(0, "Вася");
-    User user2 = new User(1L, "Петя");
+    User user1 = new User(1L, "Вася");
+    User user2 = new User(2L, "Петя");
+    User user3 = new User(3L, "Коля");
 
-    AddressDataSet address1 = new AddressDataSet();
-    address1.setStreet("улица Мира, дом 1");
+    AddressDataSet address1 = new AddressDataSet("улица Мира, дом 1");
 
-    AddressDataSet address2 = new AddressDataSet();
-    address2.setStreet("улица Мира, дом 2");
+    AddressDataSet address2 = new AddressDataSet("улица Мира, дом 2");
 
-    PhoneDataSet phone1 = new PhoneDataSet();
-    PhoneDataSet phone2 = new PhoneDataSet();
-    phone1.setNumber("1111");
-    phone2.setNumber("2222");
+    AddressDataSet address3 = new AddressDataSet("улица Мира, дом 3");
 
-    PhoneDataSet phone3 = new PhoneDataSet();
-    PhoneDataSet phone4 = new PhoneDataSet();
-    phone3.setNumber("1111");
-    phone4.setNumber("2222");
-
-    Set<PhoneDataSet> phoneDataSets = new HashSet<>();
-    phoneDataSets.add(phone1);
-    phoneDataSets.add(phone2);
+    Set<PhoneDataSet> phoneDataSets1 = new HashSet<>();
+    phoneDataSets1.add(new PhoneDataSet("1111"));
+    phoneDataSets1.add(new PhoneDataSet("2222"));
 
     Set<PhoneDataSet> phoneDataSets2 = new HashSet<>();
-    phoneDataSets2.add(phone3);
-    phoneDataSets2.add(phone4);
+    phoneDataSets2.add(new PhoneDataSet("3333"));
+    phoneDataSets2.add(new PhoneDataSet("4444"));
+
+    Set<PhoneDataSet> phoneDataSets3 = new HashSet<>();
+    phoneDataSets3.add(new PhoneDataSet("5555"));
+    phoneDataSets3.add(new PhoneDataSet("6666"));
 
     user1.setAddressDataSet(address1);
-    user1.setPhoneDataSetSet(phoneDataSets);
+    user1.setPhoneDataSet(phoneDataSets1);
     user2.setAddressDataSet(address2);
-    user2.setPhoneDataSetSet(phoneDataSets2);
+    user2.setPhoneDataSet(phoneDataSets2);
+    user3.setAddressDataSet(address3);
+    user3.setPhoneDataSet(phoneDataSets3);
 
     long id1 = dbServiceUser.saveUser(user1);
     long id2 = dbServiceUser.saveUser(user2);
+    long id3 = dbServiceUser.saveUser(user3);
 
     Optional<User> mayBeCreatedUser1 = dbServiceUser.getUser(id1);
     Optional<User> mayBeCreatedUser2 = dbServiceUser.getUser(id2);
+    Optional<User> mayBeCreatedUser3 = dbServiceUser.getUser(id3);
+    System.out.println("--------------");
 
+    System.out.println(mayBeCreatedUser1.get().getName());
+    System.out.println("----");
+    System.out.println(mayBeCreatedUser2.get().getName());
+    System.out.println("----");
+    System.out.println(mayBeCreatedUser3.get().getName());
+    System.out.println("--------------");
+    System.out.println(mayBeCreatedUser1.get().getAddressDataSet().getStreet());
+    System.out.println("----");
+    System.out.println(mayBeCreatedUser2.get().getAddressDataSet().getStreet());
+    System.out.println("----");
+    System.out.println(mayBeCreatedUser3.get().getAddressDataSet().getStreet());
+    System.out.println("--------------");
+    mayBeCreatedUser1.get().getPhoneDataSet().forEach(v -> System.out.println(v.getNumber()));
+    System.out.println("----");
+    mayBeCreatedUser2.get().getPhoneDataSet().forEach(v -> System.out.println(v.getNumber()));
+    System.out.println("----");
+    mayBeCreatedUser3.get().getPhoneDataSet().forEach(v -> System.out.println(v.getNumber()));
   }
 }
