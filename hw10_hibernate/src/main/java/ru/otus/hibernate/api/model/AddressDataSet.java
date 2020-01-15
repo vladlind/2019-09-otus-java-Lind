@@ -8,7 +8,7 @@ public class AddressDataSet {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id")
+    @Column(name = "address_id")
     private long id;
 
     @Column(name = "street")

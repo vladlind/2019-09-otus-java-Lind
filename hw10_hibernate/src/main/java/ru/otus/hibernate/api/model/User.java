@@ -10,7 +10,6 @@ public class User {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "user_id")
   private long id;
 
   @Column(name = "name")
@@ -20,7 +19,8 @@ public class User {
   @JoinColumn(name = "address_id")
   private AddressDataSet addressDataSet;
 
-  @OneToMany(targetEntity = PhoneDataSet.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+  @OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER, orphanRemoval = true)
+  @JoinColumn(name="user_id")
   private Set<PhoneDataSet> phoneDataSet;
 
   public User() {
