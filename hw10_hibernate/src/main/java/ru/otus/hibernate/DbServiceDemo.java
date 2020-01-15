@@ -50,6 +50,7 @@ public class DbServiceDemo {
     Set<PhoneDataSet> phoneDataSets3 = new HashSet<>();
     phoneDataSets3.add(new PhoneDataSet("5955"));
     phoneDataSets3.add(new PhoneDataSet("6666"));
+    phoneDataSets3.add(new PhoneDataSet("7777"));
 
     user1.setAddressDataSet(address1);
     user1.setPhoneDataSet(phoneDataSets1);
