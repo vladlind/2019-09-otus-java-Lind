@@ -14,6 +14,9 @@ public class PhoneDataSet {
     @Column(name = "number")
     private String number;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User user;
+
     public PhoneDataSet() {
     }
 
