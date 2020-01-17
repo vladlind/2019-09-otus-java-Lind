@@ -17,6 +17,10 @@ public class PhoneDataSet {
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public PhoneDataSet() {
     }
 

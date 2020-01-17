@@ -19,7 +19,7 @@ public class User {
   @JoinColumn(name = "address_id")
   private AddressDataSet addressDataSet;
 
-  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
   private Set<PhoneDataSet> phoneDataSet;
 
   public User() {
@@ -56,7 +56,8 @@ public class User {
 
   public void setPhoneDataSet(Set<PhoneDataSet> phoneDataSet) {
     this.phoneDataSet = phoneDataSet;
-  }
+    this.phoneDataSet.forEach(phone -> phone.setUser(this));
+    }
 
   @Override
   public String toString() {
