@@ -19,8 +19,7 @@ public class User {
   @JoinColumn(name = "address_id")
   private AddressDataSet addressDataSet;
 
-  @OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER, orphanRemoval = true)
-  @JoinColumn(name="user_id")
+  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
   private Set<PhoneDataSet> phoneDataSet;
 
   public User() {
