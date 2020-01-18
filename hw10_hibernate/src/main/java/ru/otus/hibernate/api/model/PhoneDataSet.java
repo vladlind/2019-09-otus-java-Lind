@@ -8,16 +8,25 @@ public class PhoneDataSet {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id")
+    @Column(name = "phone_id")
     private long id;
 
     @Column(name = "number")
     private String number;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
-    public PhoneDataSet(){}
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public PhoneDataSet() {
+    }
+
+    public PhoneDataSet(String number){
+        setNumber(number);
+    }
 
     public String getNumber() {
         return number;
