@@ -42,6 +42,7 @@
         <module>hw09_jdbc</module>
         <module>hw10_hibernate</module>
         <module>hw11_cache</module>
+        <module>hw14_multithreading</module>
     </modules>
 
     <properties>
