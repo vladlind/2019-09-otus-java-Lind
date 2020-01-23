@@ -35,6 +35,7 @@ public class UserDaoHibernate implements UserDao {
   }
 
 
+
   @Override
   public long saveUser(User user) {
     DatabaseSessionHibernate currentSession = sessionManager.getCurrentSession();
