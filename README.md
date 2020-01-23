@@ -10,5 +10,9 @@ Otus "Java Developer" course repo for homework
 6. hw06_solid
 7. hw07_patterns
 8. hw08_myjson
+9. hw09_jdbc
+10. hw10_hibernate
+11. hw11_cache
+14. hw14_hibernate
 
 Владимир Линд
