@@ -19,7 +19,6 @@ import ru.otus.webserver.services.TemplateProcessor;
 import ru.otus.webserver.services.TemplateProcessorImpl;
 import ru.otus.webserver.services.UserAuthService;
 import ru.otus.webserver.services.UserAuthServiceImpl;
-
 import java.util.HashSet;
 import java.util.Set;
 
