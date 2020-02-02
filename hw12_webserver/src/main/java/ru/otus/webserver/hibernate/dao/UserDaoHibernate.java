@@ -11,8 +11,8 @@ import ru.otus.webserver.api.sessionmanager.SessionManager;
 import ru.otus.webserver.hibernate.sessionmanager.DatabaseSessionHibernate;
 import ru.otus.webserver.hibernate.sessionmanager.SessionManagerHibernate;
 
+import javax.persistence.TypedQuery;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 public class UserDaoHibernate implements UserDao {
@@ -23,19 +23,6 @@ public class UserDaoHibernate implements UserDao {
   public UserDaoHibernate(SessionManagerHibernate sessionManager) {
     this.sessionManager = sessionManager;
   }
-
-
-  @Override
-  public Optional<User> findById(long id) {
-    DatabaseSessionHibernate currentSession = sessionManager.getCurrentSession();
-    try {
-      return Optional.ofNullable(currentSession.getHibernateSession().find(User.class, id));
-    } catch (Exception e) {
-      logger.error(e.getMessage(), e);
-    }
-    return Optional.empty();
-  }
-
 
 
   @Override
@@ -69,7 +56,16 @@ public class UserDaoHibernate implements UserDao {
 
   @Override
   public Optional<User>  findByLogin(String login) {
-    return null;
+    DatabaseSessionHibernate currentSession = sessionManager.getCurrentSession();
+    try {
+      Session hibernateSession = currentSession.getHibernateSession();
+      TypedQuery<User> query = hibernateSession.createQuery("SELECT e FROM User e WHERE e.name = :Name", User.class);
+      query.setParameter("Name", login);
+      return Optional.ofNullable(query.getSingleResult());
+    } catch (Exception e) {
+      logger.error(e.getMessage(), e);
+    }
+    return Optional.empty();
   }
 
   @Override

@@ -27,11 +27,8 @@ import static ru.otus.webserver.server.SecurityType.*;
 public class Main {
     private static final int WEB_SERVER_PORT = 8080;
     private static final String TEMPLATES_DIR = "/templates/";
-    private static final String HASH_LOGIN_SERVICE_CONFIG_NAME = "realm.properties";
-    private static final String REALM_NAME = "AnyRealm";
 
     public static void main(String[] args) throws Exception {
-        String hashLoginServiceConfigPath = FileSystemHelper.localFileNameOrResourceNameToFullPath(HASH_LOGIN_SERVICE_CONFIG_NAME);
 
         SessionFactory sessionFactory = HibernateUtils.buildSessionFactory
                 ("hibernate.cfg.xml", User.class, AddressDataSet.class, PhoneDataSet.class);
@@ -40,9 +37,9 @@ public class Main {
         UserDao userDao = new UserDaoHibernate(sessionManager);
         DBServiceUser dbServiceUser = new DbServiceUserImpl(userDao);
 
-        User user1 = new User(1L, "Вася");
-        User user2 = new User(2L, "Петя");
-        User user3 = new User(3L, "Коля");
+        User user1 = new User(1L, "Вася", "33333");
+        User user2 = new User(2L, "Петя", "22222");
+        User user3 = new User(3L, "Коля", "11111");
 
         AddressDataSet address1 = new AddressDataSet("улица Мира, дом 1");
 
@@ -76,13 +73,11 @@ public class Main {
         long id3 = dbServiceUser.saveUser(user3);
 
         UserAuthService userAuthServiceForFilterBasedSecurity = new UserAuthServiceImpl(userDao);
-        LoginService loginServiceForBasicSecurity = new HashLoginService(REALM_NAME, hashLoginServiceConfigPath);
 
         TemplateProcessor templateProcessor = new TemplateProcessorImpl(TEMPLATES_DIR);
 
         UsersWebServer usersWebServer = new UsersWebServerImpl(WEB_SERVER_PORT,
-                BASIC,
-                loginServiceForBasicSecurity,
+                userAuthServiceForFilterBasedSecurity,
                 userDao,
                 templateProcessor);
 
