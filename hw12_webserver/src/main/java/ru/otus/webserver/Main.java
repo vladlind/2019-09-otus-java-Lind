@@ -1,9 +1,6 @@
 package ru.otus.webserver;
 
-import org.eclipse.jetty.security.HashLoginService;
-import org.eclipse.jetty.security.LoginService;
 import org.hibernate.SessionFactory;
-import ru.otus.helpers.FileSystemHelper;
 import ru.otus.webserver.api.dao.UserDao;
 import ru.otus.webserver.api.model.AddressDataSet;
 import ru.otus.webserver.api.model.PhoneDataSet;
@@ -19,6 +16,7 @@ import ru.otus.webserver.services.TemplateProcessor;
 import ru.otus.webserver.services.TemplateProcessorImpl;
 import ru.otus.webserver.services.UserAuthService;
 import ru.otus.webserver.services.UserAuthServiceImpl;
+
 import java.util.HashSet;
 import java.util.Set;
 

@@ -14,12 +14,15 @@ public class AddressDataSet {
     @Column(name = "street")
     private String street;
 
-    @OneToOne(mappedBy="addressDataSet")
+    @OneToOne(mappedBy = "addressDataSet")
     private User user;
 
-    public AddressDataSet() {};
+    public AddressDataSet() {
+    }
 
-    public AddressDataSet(String street) { setStreet(street);}
+    public AddressDataSet(String street) {
+        setStreet(street);
+    }
 
     public void setStreet(String street) {
         this.street = street;

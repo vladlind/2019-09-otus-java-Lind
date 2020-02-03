@@ -48,14 +48,17 @@ public class CreateUserServlet extends HttpServlet {
         String address = request.getParameter(PARAM_ADDRESS);
         String phone = request.getParameter(PARAM_PHONE);
 
+        if (id.isEmpty()) {
+            id = "0";
+        }
         User userNew = new User(Long.parseLong(id), name);
-        if (password!=null) {
+        if (password != null) {
             userNew.setPassword(password);
         }
-        if (address!=null) {
+        if (address != null) {
             userNew.setAddressDataSet(new AddressDataSet(address));
         }
-        if (phone!=null) {
+        if (phone != null) {
             List<String> phones = Arrays.asList(phone.split("\\s*,\\s*"));
             Set<PhoneDataSet> phoneSet = new HashSet<>();
             phones.forEach(ph -> phoneSet.add(new PhoneDataSet(ph)));
@@ -66,8 +69,8 @@ public class CreateUserServlet extends HttpServlet {
 
         response.setContentType("text/html");
         PrintWriter writer = response.getWriter();
-        writer.println("<h2>User: "+name+" created<h2>");
+        writer.println("<h2>User: " + name + " created<h2>");
 
     }
-
 }
+

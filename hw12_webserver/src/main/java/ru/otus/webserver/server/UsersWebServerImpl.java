@@ -1,12 +1,5 @@
 package ru.otus.webserver.server;
 
-;
-
-import org.eclipse.jetty.security.ConstraintMapping;
-import org.eclipse.jetty.security.ConstraintSecurityHandler;
-import org.eclipse.jetty.security.LoginService;
-import org.eclipse.jetty.security.SecurityHandler;
-import org.eclipse.jetty.security.authentication.BasicAuthenticator;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerList;
@@ -14,9 +7,8 @@ import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.eclipse.jetty.servlet.FilterHolder;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
-import org.eclipse.jetty.util.security.Constraint;
-import ru.otus.helpers.FileSystemHelper;
 import ru.otus.webserver.api.dao.UserDao;
+import ru.otus.webserver.helpers.FileSystemHelper;
 import ru.otus.webserver.services.TemplateProcessor;
 import ru.otus.webserver.services.UserAuthService;
 import ru.otus.webserver.servlet.AuthorizationFilter;
@@ -24,9 +16,8 @@ import ru.otus.webserver.servlet.CreateUserServlet;
 import ru.otus.webserver.servlet.LoginServlet;
 import ru.otus.webserver.servlet.UsersServlet;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.IntStream;
+
 
 public class UsersWebServerImpl implements UsersWebServer {
     private static final String START_PAGE_NAME = "index.html";
@@ -93,7 +84,7 @@ public class UsersWebServerImpl implements UsersWebServer {
     }
 
     private Handler applySecurity(ServletContextHandler servletContextHandler) {
-        applyFilterBasedSecurity(servletContextHandler,  "/createuser");
+        applyFilterBasedSecurity(servletContextHandler, "/createuser");
         return servletContextHandler;
     }
 
