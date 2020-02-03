@@ -20,6 +20,7 @@ import ru.otus.webserver.api.dao.UserDao;
 import ru.otus.webserver.services.TemplateProcessor;
 import ru.otus.webserver.services.UserAuthService;
 import ru.otus.webserver.servlet.AuthorizationFilter;
+import ru.otus.webserver.servlet.CreateUserServlet;
 import ru.otus.webserver.servlet.LoginServlet;
 import ru.otus.webserver.servlet.UsersServlet;
 
@@ -87,19 +88,19 @@ public class UsersWebServerImpl implements UsersWebServer {
     private ServletContextHandler createServletContextHandler() {
         ServletContextHandler servletContextHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
         servletContextHandler.addServlet(new ServletHolder(new UsersServlet(templateProcessor, userDao)), "/users");
+        servletContextHandler.addServlet(new ServletHolder(new CreateUserServlet(templateProcessor, userDao)), "/createuser");
         return servletContextHandler;
     }
 
     private Handler applySecurity(ServletContextHandler servletContextHandler) {
-        applyFilterBasedSecurity(servletContextHandler, "/users");
+        applyFilterBasedSecurity(servletContextHandler,  "/createuser");
         return servletContextHandler;
     }
 
     private void applyFilterBasedSecurity(ServletContextHandler servletContextHandler, String... paths) {
         servletContextHandler.addServlet(new ServletHolder(new LoginServlet(templateProcessor, userAuthServiceForFilterBasedSecurity)), "/login");
         AuthorizationFilter authorizationFilter = new AuthorizationFilter();
-        IntStream.range(0, paths.length)
-                .forEachOrdered(i -> servletContextHandler.addFilter(new FilterHolder(authorizationFilter), paths[i], null));
+        IntStream.range(0, paths.length).forEachOrdered(i -> servletContextHandler.addFilter(new FilterHolder(authorizationFilter), paths[i], null));
     }
 
 }

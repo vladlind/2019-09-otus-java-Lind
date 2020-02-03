@@ -17,7 +17,7 @@ public class UserAuthServiceImpl implements UserAuthService {
     public boolean authenticate(String login, String password) {
         DBServiceUser dbServiceUser = new DbServiceUserImpl(userDao);
         return dbServiceUser.getUser(login)
-                .map(user -> user.getPassword().equals(password))
+                .map(user -> user.getPassword().equals(password) && user.isAdmin())
                 .orElse(false);
     }
 

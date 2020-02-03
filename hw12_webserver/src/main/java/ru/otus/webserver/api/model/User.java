@@ -15,12 +15,28 @@ public class User {
   @Column(name = "name")
   private String name;
 
+  @Column(name = "admin")
+  private boolean admin = false;
+
+  public boolean isAdmin() {
+    return admin;
+  }
+
+  private void setAdmin() {
+    this.admin = true;
+  }
+
   @OneToOne(targetEntity = AddressDataSet.class, cascade = CascadeType.ALL)
   @JoinColumn(name = "address_id")
   private AddressDataSet addressDataSet;
 
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
   private Set<PhoneDataSet> phoneDataSet;
+
+  public void setPassword(String password) {
+    this.password = password;
+    setAdmin();
+  }
 
   public String getPassword() {
     return password;
@@ -32,10 +48,9 @@ public class User {
   public User() {
   }
 
-  public User(long id, String name, String password) {
+  public User(long id, String name) {
     this.id = id;
     this.name = name;
-    this.password = password;
   }
 
   public long getId() {

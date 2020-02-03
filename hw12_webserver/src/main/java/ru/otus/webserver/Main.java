@@ -22,7 +22,6 @@ import ru.otus.webserver.services.UserAuthServiceImpl;
 import java.util.HashSet;
 import java.util.Set;
 
-import static ru.otus.webserver.server.SecurityType.*;
 
 public class Main {
     private static final int WEB_SERVER_PORT = 8080;
@@ -37,9 +36,9 @@ public class Main {
         UserDao userDao = new UserDaoHibernate(sessionManager);
         DBServiceUser dbServiceUser = new DbServiceUserImpl(userDao);
 
-        User user1 = new User(1L, "Вася", "33333");
-        User user2 = new User(2L, "Петя", "22222");
-        User user3 = new User(3L, "Коля", "11111");
+        User user1 = new User(0, "Вася");
+        User user2 = new User(0, "Петя");
+        User user3 = new User(0, "Коля");
 
         AddressDataSet address1 = new AddressDataSet("улица Мира, дом 1");
 
@@ -67,6 +66,7 @@ public class Main {
         user3.setAddressDataSet(address3);
         user3.setPhoneDataSet(phoneDataSets3);
 
+        user3.setPassword("11111");
 
         long id1 = dbServiceUser.saveUser(user1);
         long id2 = dbServiceUser.saveUser(user2);
