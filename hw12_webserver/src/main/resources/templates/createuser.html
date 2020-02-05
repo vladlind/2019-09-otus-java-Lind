@@ -1,0 +1,42 @@
+<html xmlns="http://www.w3.org/1999/xhtml" content="text/html;">
+<head>
+    <title>Создание пользователя</title>
+</head>
+<body>
+
+<h4>Создание нового пользователя</h4>
+
+<div class="top">
+    <img src="img/user.png">
+    <br/>
+    <form action="createuser" method="post">
+        <label>
+            ID (leave empty if the user is new or put ID of the user being updated)<br/>
+            <input type="text" name="ID">
+        </label>
+        <br/><br/>
+        <label>
+            name<br/>
+            <input type="text" name="name">
+        </label>
+        <br/><br/>
+        <label>
+            password (optional, when entered user is granted admin rights)<br/>
+            <input type="text" name="password">
+        </label>
+        <br/><br/>
+        <label>
+            address (optional)<br/>
+            <input type="text" name="address">
+        </label>
+        <br/><br/>
+        <label>
+            phones (optional, comma separated)<br/>
+            <input type="text" name="phone">
+        </label>
+        <br/><br/>
+        <input type="submit" value="Создать пользователя">
+    </form>
+</div>
+</body>
+</html>

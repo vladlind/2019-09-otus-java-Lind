@@ -13,6 +13,7 @@ Otus "Java Developer" course repo for homework
 9. hw09_jdbc
 10. hw10_hibernate
 11. hw11_cache
-14. hw14_hibernate
+12. hw12_webserver
+14. hw14_multithreading
 
 Владимир Линд

@@ -26,11 +26,4 @@ target
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
-<<<<<<< HEAD
-# temp exclude hw12_webserver
 
-#hw12_webserver/
-=======
-#temp hw12_webserver
-hw12_webserver/
->>>>>>> eb791115d43b98365f2e1e6ad38fa5bc169a7feb
