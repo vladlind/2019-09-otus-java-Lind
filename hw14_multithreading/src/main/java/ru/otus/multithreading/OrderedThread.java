@@ -11,7 +11,7 @@ public class OrderedThread extends Thread {
 
   private String order;
 
-  OrderedThread(ResourceLock lock, String order, long timeLag) {
+  public OrderedThread(ResourceLock lock, String order, long timeLag) {
     this.lock = lock;
     this.order = order;
     this.timeLag = timeLag;
