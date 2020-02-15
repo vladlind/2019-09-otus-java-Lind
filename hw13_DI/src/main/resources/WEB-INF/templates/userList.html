@@ -36,15 +36,15 @@
                 <th>ID</th>
                 <th>Name</th>
                 <th>Address</th>
-                <th>Phones</th>
+<!--                <th>Phones</th>-->
             </tr>
         </thead>
         <tbody>
             <tr th:each="user : ${allUsers}">
                 <td th:text="${user.id}">1</td>
                 <td th:text="${user.name}">Иван</td>
-                <td th:text="${user.addressDataSet.street != null} ? ${user.addressDataSet.street} : 'no address'">ул.Мира, 1</td>
-                <td th:text="${#strings.setJoin((user.phoneDataSet.{number}), ', ')}">111</td>
+                <td th:text="${user.addressDataSet != null} ? ${user.addressDataSet.street} : 'no address'">ул.Мира, 1</td>
+<!--                <td th:text="${#strings.setJoin((user.phoneDataSet.{number}), ', ')}">111</td>-->
             </tr>
         </tbody>
     </table>

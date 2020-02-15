@@ -2,6 +2,7 @@ package ru.otus.hw13_DI.repository;
 
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import ru.otus.hw13_DI.domain.User;
 
 import javax.persistence.TypedQuery;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 @Repository
+//@Transactional
 public class UserRepositoryImpl implements UserRepository {
 
     private final SessionFactory sessionFactory;
@@ -28,7 +30,7 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public ArrayList<User> findAll() {
         return new ArrayList<>(this.sessionFactory.getCurrentSession()
-                .createQuery("SELECT a FROM User a", User.class).getResultList());
+                .createQuery("FROM User", User.class).list());
     }
 
     @Override

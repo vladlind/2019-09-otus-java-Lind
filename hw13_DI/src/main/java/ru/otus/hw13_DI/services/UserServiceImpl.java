@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
@@ -18,19 +19,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional
     public long saveUser(User user) {
         return userRepository.saveUser(user);
     }
 
     @Override
-    @Transactional
     public Optional<User> getUser(String login) {
         return userRepository.findByLogin(login);
     }
 
     @Override
-    @Transactional(readOnly = true)
+    //@Transactional(readOnly = true)
     public ArrayList<User> getAll() {
         return userRepository.findAll();
     }

@@ -7,7 +7,6 @@ import ru.otus.webserver.api.model.User;
 import ru.otus.webserver.api.sessionmanager.SessionManager;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 public class DbServiceUserImpl implements DBServiceUser {

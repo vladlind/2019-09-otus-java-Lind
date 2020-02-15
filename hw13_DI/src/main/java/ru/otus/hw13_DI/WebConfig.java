@@ -1,4 +1,4 @@
-package ru.otus.hw13_DI.config;
+package ru.otus.hw13_DI;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
