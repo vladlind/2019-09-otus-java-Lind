@@ -37,10 +37,10 @@
         <label for="holder-input2">Name:</label>
         <input id="holder-input2" name="name" type="text" th:value="${user.name}" value="John Doe"/>
     </div>
-<!--    <div class="row">-->
-<!--        <label for="holder-input3">Address:</label>-->
-<!--        <input id="holder-input3" name="addressDataSet" type="text" th:value="${user.addressDataSet}" value="Mira str,1"/>-->
-<!--    </div>-->
+    <div class="row">
+        <label for="holder-input3">Address:</label>
+        <input id="holder-input3" name="addressDataSet" type="text" th:attr="address=${user.addressDataSet != null}?${user.addressDataSet.street}:'no address'"/>
+    </div>
 <!--&lt;!&ndash;    <div class="row">&ndash;&gt;-->
 <!--&lt;!&ndash;        <label for="holder-input4">Phones:</label>&ndash;&gt;-->
 <!--&lt;!&ndash;        <input id="holder-input4" name="phoneDataSet" type="text" th:value="${#strings.setSplit(user.phoneDataSet, ','}" value="111"/>&ndash;&gt;-->

@@ -25,7 +25,7 @@ public class UserController {
     @GetMapping({"/", "/user/list"})
     public String userListView(Model model) {
         ArrayList<User> users = this.userService.getAll();
-        model.addAttribute("users", users);
+        model.addAttribute("allUsers", users);
         return "userList.html";
     }
 
@@ -38,7 +38,7 @@ public class UserController {
 
     @PostMapping("/user/save")
     public RedirectView userSave(@ModelAttribute User user) {
-        userService.saveUser(user);
+        this.userService.saveUser(user);
         return new RedirectView("/user/list", true);
     }
 

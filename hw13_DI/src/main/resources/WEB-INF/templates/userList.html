@@ -43,7 +43,7 @@
             <tr th:each="user : ${allUsers}">
                 <td th:text="${user.id}">1</td>
                 <td th:text="${user.name}">Иван</td>
-                <td th:text="${user.addressDataSet != null} ? ${user.addressDataSet.street} : 'no address'">ул.Мира, 1</td>
+                <td th:text="${user.addressDataSet != null}?${user.addressDataSet.street}:'no address'"></td>
 <!--                <td th:text="${#strings.setJoin((user.phoneDataSet.{number}), ', ')}">111</td>-->
             </tr>
         </tbody>
