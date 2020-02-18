@@ -2,7 +2,6 @@ package ru.otus.hw13_DI.repository;
 
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 import ru.otus.hw13_DI.domain.User;
 
 import javax.persistence.TypedQuery;
@@ -10,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 @Repository
-//@Transactional
 public class UserRepositoryImpl implements UserRepository {
 
     private final SessionFactory sessionFactory;

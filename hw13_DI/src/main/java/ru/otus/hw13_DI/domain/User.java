@@ -2,6 +2,8 @@ package ru.otus.hw13_DI.domain;
 
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -31,7 +33,7 @@ public class User {
     private AddressDataSet addressDataSet;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private Set<PhoneDataSet> phoneDataSet;
+    private List<PhoneDataSet> phoneDataSet;
 
     public void setPassword(String password) {
         this.password = password;
@@ -73,11 +75,11 @@ public class User {
         this.addressDataSet = addressDataSet;
     }
 
-    public Set<PhoneDataSet> getPhoneDataSet() {
+    public List<PhoneDataSet> getPhoneDataSet() {
         return phoneDataSet;
     }
 
-    public void setPhoneDataSet(Set<PhoneDataSet> phoneDataSet) {
+    public void setPhoneDataSet(List<PhoneDataSet> phoneDataSet) {
         this.phoneDataSet = phoneDataSet;
         this.phoneDataSet.forEach(phone -> phone.setUser(this));
     }

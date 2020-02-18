@@ -23,17 +23,10 @@ import java.util.Properties;
 @EnableTransactionManagement
 public class HibernateConfig {
 
-    private final ApplicationContext applicationContext;
-
-    public HibernateConfig(ApplicationContext applicationContext) {
-        this.applicationContext = applicationContext;
-    }
-
     @Bean
     public LocalSessionFactoryBean getSessionFactory() {
 
         LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
-        factoryBean.setConfigLocation(this.applicationContext.getResource("classpath:hibernate.cfg.xml"));
         factoryBean.setAnnotatedClasses(User.class, PhoneDataSet.class, AddressDataSet.class);
         factoryBean.setDataSource(getDataSource());
         factoryBean.setHibernateProperties(setHibernateProperties());

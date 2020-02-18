@@ -26,7 +26,7 @@
 </head>
 <body>
 
-<form id="create-form" th:action="@{/user/save}" th:object="${user}" th:method="post" accept-charset="utf-8">
+<form id="create-form" th:action="@{/user/save}" th:method="post" accept-charset="utf-8">
     <h1>New User:</h1>
 
     <div class="row">
@@ -41,14 +41,15 @@
         <label for="holder-input3">Address:</label>
         <input id="holder-input3" name="addressDataSet" type="text" th:attr="address=${user.addressDataSet != null}?${user.addressDataSet.street}:'no address'"/>
     </div>
-<!--&lt;!&ndash;    <div class="row">&ndash;&gt;-->
-<!--&lt;!&ndash;        <label for="holder-input4">Phones:</label>&ndash;&gt;-->
-<!--&lt;!&ndash;        <input id="holder-input4" name="phoneDataSet" type="text" th:value="${#strings.setSplit(user.phoneDataSet, ','}" value="111"/>&ndash;&gt;-->
-<!--&lt;!&ndash;    </div>&ndash;&gt;-->
-<!--    <div class="row">-->
-<!--        <label for="holder-input5">Password:</label>-->
-<!--        <input id="holder-input5" name="password" type="text" th:value="${user.password}" value="password"/>-->
-<!--    </div>-->
+    <br>
+    <span th:each="phone, stat: ${phoneList}">
+        <label for="holder-input4" th:text="|Phone${stat.count}|"></label>
+        <input id="holder-input4" name="PhoneDataSet" th:value="${phone.number}"/>
+    </span>
+    <div class="row">
+        <label for="holder-input5">Password:</label>
+        <input id="holder-input5" name="password" type="text" th:value="${user.password}" value="password"/>
+    </div>
 
     <div class="row">
         <button type="submit">Save</button>

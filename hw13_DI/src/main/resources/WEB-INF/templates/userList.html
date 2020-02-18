@@ -17,40 +17,46 @@
         a {
             display: block;
         }
+
+
     </style>
 
     <style th:inline="text">
         h3 {
             background: url([[@{/user.png}]]) no-repeat;
-            padding: 2px;
+            padding: 100px;
             padding-left: 30px;
         }
+
+
     </style>
 </head>
 <body>
-    <h3>Users:</h3>
+<h3></h3>
+<h2>Users:</h2>
 
-    <table class="allUsers">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Address</th>
-<!--                <th>Phones</th>-->
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="user : ${allUsers}">
-                <td th:text="${user.id}">1</td>
-                <td th:text="${user.name}">Иван</td>
-                <td th:text="${user.addressDataSet != null}?${user.addressDataSet.street}:'no address'"></td>
-<!--                <td th:text="${#strings.setJoin((user.phoneDataSet.{number}), ', ')}">111</td>-->
-            </tr>
-        </tbody>
-    </table>
-    <a th:href="@{/user/create}" href="userCreate.html">New user</a>
+<table class="allUsers">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Phones</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${allUsers}">
+        <td th:text="${user.id}">1</td>
+        <td th:text="${user.name}">Иван</td>
+        <td th:text="${user.addressDataSet != null}?${user.addressDataSet.street}:'no address'"></td>
+        <td th:text="${#strings.listJoin(user.phoneDataSet.![number!=''?number:'no phone'], ', ')}"></td>
+    </tr>
 
-    <br/><br/>
+    </tbody>
+</table>
+<a th:href="@{/user/create}" href="userCreate.html">New user</a>
+
+<br/><br/>
 
 </body>
 </html>
