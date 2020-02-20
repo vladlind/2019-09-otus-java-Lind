@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 import ru.otus.hw13_DI.domain.PhoneDataSet;
 import ru.otus.hw13_DI.domain.User;
@@ -22,11 +23,21 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping({"/", "/user/list"})
-    public String userListView(Model model) {
-        ArrayList<User> users = this.userService.getAll();
-        model.addAttribute("allUsers", users);
-        return "userList.html";
+    @GetMapping({"/"})
+    public String loginPageView(Model model) {
+            return "login.html";
+        }
+
+
+    @PostMapping({"/user/login"})
+    public String loginPagePost(Model model, @RequestParam("username")String username, @RequestParam("password")String password) {
+        if (this.userService.authenticateUser(username, password)) {
+            ArrayList<User> users = this.userService.getAll();
+            model.addAttribute("allUsers", users);
+            return "userList.html";
+        } else {
+            return "notAuthenticated.html";
+        }
     }
 
     @GetMapping("/user/create")
@@ -44,9 +55,9 @@ public class UserController {
 
 
     @PostMapping("/user/save")
-    public RedirectView userSave(@ModelAttribute User user, @ModelAttribute("phoneList") ArrayList<PhoneDataSet> phones) {
+    public RedirectView userSave(@ModelAttribute User user) {
         this.userService.saveUser(user);
-        return new RedirectView("/user/list", true);
+        return new RedirectView("/", true);
     }
 
 }

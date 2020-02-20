@@ -1,11 +1,7 @@
-package ru.otus.hw13_DI;
+package ru.otus.hw13_DI.configHibernate;
 
 
-import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.Environment;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;

@@ -34,7 +34,7 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public long saveUser(User user) {
         if (user.getId() > 0) {
-            this.sessionFactory.getCurrentSession().merge(user);
+            this.sessionFactory.getCurrentSession().update(user);
         } else {
             this.sessionFactory.getCurrentSession().persist(user);
         }

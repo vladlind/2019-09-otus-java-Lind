@@ -5,8 +5,8 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.otus.hw13_DI.domain.User;
 import ru.otus.hw13_DI.repository.UserRepository;
 
+import javax.persistence.NoResultException;
 import java.util.ArrayList;
-import java.util.Optional;
 
 @Service
 @Transactional
@@ -20,16 +20,22 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public long saveUser(User user) {
-        return userRepository.saveUser(user);
+        return this.userRepository.saveUser(user);
     }
 
     @Override
-    public Optional<User> getUser(String login) {
-        return userRepository.findByLogin(login);
-    }
+    public boolean authenticateUser(String login, String password) {
+        try {
+            return this.userRepository.findByLogin(login)
+                    .map(user -> user.getPassword().equals(password) && user.isAdmin())
+                    .orElse(false);
+        } catch (NoResultException nre){
+            return false;
+            }
+        }
 
     @Override
     public ArrayList<User> getAll() {
-        return userRepository.findAll();
+        return this.userRepository.findAll();
     }
 }

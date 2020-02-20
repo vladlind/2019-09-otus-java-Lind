@@ -39,7 +39,7 @@
     </div>
     <div class="row">
         <label for="holder-input3">Address:</label>
-        <input id="holder-input3" name="addressDataSet" type="text" th:attr="address=${user.addressDataSet != null}?${user.addressDataSet.street}:'no address'"/>
+        <input id="holder-input3" name="addressDataSet" type="text" th:value="${user.addressDataSet}"/>
     </div>
     <br>
     <span th:each="phone, stat: ${phoneList}">

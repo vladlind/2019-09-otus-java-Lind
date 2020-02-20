@@ -8,7 +8,7 @@
             padding: 50px;
         }
 
-        .users, .users td {
+        .allUsers, .allUsers td {
             border: 1px solid lightgray;
             padding: 5px;
             margin-bottom: 10px;
@@ -19,6 +19,7 @@
         }
 
 
+
     </style>
 
     <style th:inline="text">
@@ -27,7 +28,6 @@
             padding: 100px;
             padding-left: 30px;
         }
-
 
     </style>
 </head>
@@ -48,7 +48,7 @@
     <tr th:each="user : ${allUsers}">
         <td th:text="${user.id}">1</td>
         <td th:text="${user.name}">Иван</td>
-        <td th:text="${user.addressDataSet != null}?${user.addressDataSet.street}:'no address'"></td>
+        <td th:text="${user.addressDataSet.street!=''}?${user.addressDataSet.street}:'no address'"></td>
         <td th:text="${#strings.listJoin(user.phoneDataSet.![number!=''?number:'no phone'], ', ')}"></td>
     </tr>
 

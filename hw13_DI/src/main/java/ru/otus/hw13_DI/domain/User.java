@@ -2,9 +2,7 @@ package ru.otus.hw13_DI.domain;
 
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -65,6 +63,10 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public AddressDataSet getAddressDataSet() {
