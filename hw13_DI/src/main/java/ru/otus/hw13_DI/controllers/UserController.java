@@ -27,8 +27,7 @@ public class UserController {
     public String loginPageView(Model model) {
         return "login.html";
     }
-
-
+    
     @PostMapping({"/user/login"})
     public String loginPagePost(Model model, @RequestParam("username") String username, @RequestParam("password") String password) {
         if (this.userService.authenticateUser(username, password)) {
@@ -52,19 +51,6 @@ public class UserController {
         model.addAttribute("allUsers", users);
         return "userList.html";
     }
-//    @GetMapping("/user/create")
-//    public String userCreateView(Model model) {
-//        List<PhoneDataSet> phones = new ArrayList<>();
-//        for (int i = 0; i < 3; i++) {
-//            phones.add(new PhoneDataSet());
-//        }
-//        User user = new User();
-//        model.addAttribute("phoneList", phones);
-//        model.addAttribute("user", new User());
-//        user.setPhoneDataSet(phones);
-//        return "userCreate.html";
-//    }
-
 
     @PostMapping("/user/save")
     public RedirectView userSave(@ModelAttribute User user) {
