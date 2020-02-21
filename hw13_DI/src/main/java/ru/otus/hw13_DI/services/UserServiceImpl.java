@@ -29,10 +29,10 @@ public class UserServiceImpl implements UserService {
             return this.userRepository.findByLogin(login)
                     .map(user -> user.getPassword().equals(password) && user.isAdmin())
                     .orElse(false);
-        } catch (NoResultException nre){
+        } catch (NoResultException nre) {
             return false;
-            }
         }
+    }
 
     @Override
     public ArrayList<User> getAll() {

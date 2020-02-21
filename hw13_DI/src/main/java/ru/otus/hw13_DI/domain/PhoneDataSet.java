@@ -1,4 +1,5 @@
 package ru.otus.hw13_DI.domain;
+
 import javax.persistence.*;
 
 @Entity
@@ -23,7 +24,7 @@ public class PhoneDataSet {
     public PhoneDataSet() {
     }
 
-    public PhoneDataSet(String number){
+    public PhoneDataSet(String number) {
         setNumber(number);
     }
 

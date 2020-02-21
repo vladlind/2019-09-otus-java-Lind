@@ -1,4 +1,5 @@
 package ru.otus.hw13_DI.domain;
+
 import javax.persistence.*;
 
 @Entity
