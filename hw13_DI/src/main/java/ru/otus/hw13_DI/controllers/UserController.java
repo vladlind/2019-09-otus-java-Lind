@@ -27,7 +27,7 @@ public class UserController {
     public String loginPageView(Model model) {
         return "login.html";
     }
-    
+
     @PostMapping({"/user/login"})
     public String loginPagePost(Model model, @RequestParam("username") String username, @RequestParam("password") String password) {
         if (this.userService.authenticateUser(username, password)) {
