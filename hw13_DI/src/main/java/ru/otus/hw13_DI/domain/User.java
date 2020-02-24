@@ -18,10 +18,6 @@ public class User {
     @Column(name = "admin")
     private boolean admin = false;
 
-    public boolean isAdmin() {
-        return admin;
-    }
-
     private void setAdmin() {
         this.admin = true;
     }
@@ -33,15 +29,6 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<PhoneDataSet> phoneDataSet;
 
-    public void setPassword(String password) {
-        this.password = password;
-        setAdmin();
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
     @Column(name = "password")
     private String password;
 
@@ -51,6 +38,19 @@ public class User {
     public User(long id, String name) {
         this.id = id;
         this.name = name;
+    }
+
+    public boolean isAdmin() {
+        return admin;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+        setAdmin();
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public long getId() {
