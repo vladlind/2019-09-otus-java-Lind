@@ -12,8 +12,8 @@
     </parent>
 
 
-    <artifactId>hw01-maven</artifactId>
-    <name>hw01-maven</name>
+    <artifactId>hw01_maven</artifactId>
+    <name>hw01_maven</name>
 
     <dependencies>
         <dependency>

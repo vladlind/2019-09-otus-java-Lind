@@ -14,6 +14,7 @@ Otus "Java Developer" course repo for homework
 10. hw10_hibernate
 11. hw11_cache
 12. hw12_webserver
+13. hw13_IoC (Spring MVC)
 14. hw14_multithreading
 
 Владимир Линд

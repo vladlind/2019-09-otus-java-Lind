@@ -42,7 +42,9 @@
         <module>hw09_jdbc</module>
         <module>hw10_hibernate</module>
         <module>hw11_cache</module>
+        <module>hw12_webserver</module>
         <module>hw14_multithreading</module>
+        <module>hw13_DI</module>
     </modules>
 
     <properties>
