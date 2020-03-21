@@ -12,6 +12,7 @@ import ru.otus.jdbc.api.service.DbServiceAccountImpl;
 import ru.otus.jdbc.api.service.DbServiceUserImpl;
 import ru.otus.jdbc.h2.DataSourceH2;
 import ru.otus.jdbc.jdbc.DbExecutor;
+import ru.otus.jdbc.jdbc.SqlQueryGenerator;
 import ru.otus.jdbc.jdbc.dao.AccountDaoJdbc;
 import ru.otus.jdbc.jdbc.dao.UserDaoJdbc;
 import ru.otus.jdbc.jdbc.sessionmanager.SessionManagerJdbc;
@@ -36,7 +37,8 @@ public class DbServiceDemo {
     SessionManagerJdbc sessionManagerJdbc = new SessionManagerJdbc(dataSource);
 
     DbExecutor<User> dbExecutor = new DbExecutor<>();
-    UserDao userDao = new UserDaoJdbc(sessionManagerJdbc, dbExecutor);
+    SqlQueryGenerator sqlQueryGenerator = new SqlQueryGenerator();
+    UserDao userDao = new UserDaoJdbc(sessionManagerJdbc, dbExecutor, sqlQueryGenerator);
     DBServiceUser dbServiceUser = new DbServiceUserImpl(userDao);
 
     long id = dbServiceUser.saveUser(new User("dbServiceUser", 8));

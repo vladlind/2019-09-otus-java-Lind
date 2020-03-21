@@ -19,17 +19,18 @@ public class UserDaoJdbc implements UserDao {
 
   private final SessionManagerJdbc sessionManagerJdbc;
   private final DbExecutor<User> dbExecutor;
+  private final SqlQueryGenerator sqlQueryGenerator;
 
-  public UserDaoJdbc(SessionManagerJdbc sessionManagerJdbc, DbExecutor<User> dbExecutor) {
+  public UserDaoJdbc(SessionManagerJdbc sessionManagerJdbc, DbExecutor<User> dbExecutor, SqlQueryGenerator sqlQueryGenerator) {
     this.sessionManagerJdbc = sessionManagerJdbc;
     this.dbExecutor = dbExecutor;
+    this.sqlQueryGenerator = sqlQueryGenerator;
   }
 
 
   @Override
   public Optional<User> findById(long id) {
     try {
-      SqlQueryGenerator sqlQueryGenerator = new SqlQueryGenerator();
       sqlQueryGenerator.createSelect(User.class);
       return dbExecutor.selectRecord(getConnection(), sqlQueryGenerator.getSqlSelect(), id, resultSet -> {
         try {
@@ -51,7 +52,6 @@ public class UserDaoJdbc implements UserDao {
   @Override
   public long saveUser(User user) {
     try {
-      SqlQueryGenerator sqlQueryGenerator = new SqlQueryGenerator();
       sqlQueryGenerator.createInsert(user);
       return dbExecutor.insertRecord(getConnection(), sqlQueryGenerator.getSqlInsert(), sqlQueryGenerator.getOtherfieldsvalues());
     } catch (Exception e) {
@@ -63,7 +63,6 @@ public class UserDaoJdbc implements UserDao {
   @Override
   public void updateUser(User user, long id) {
     try {
-      SqlQueryGenerator sqlQueryGenerator = new SqlQueryGenerator();
       sqlQueryGenerator.createUpdate(user);
       dbExecutor.updateRecord(getConnection(), sqlQueryGenerator.getSqlUpdate(), id, sqlQueryGenerator.getOtherfieldsvalues());
     } catch (Exception e) {
