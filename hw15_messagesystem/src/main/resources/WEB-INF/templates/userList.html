@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>List of all users</title>
+    <style type="text/css">
+        body {
+            padding: 50px;
+        }
+
+        .allUsers, .allUsers td {
+            border: 1px solid lightgray;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+
+        a {
+            display: block;
+        }
+
+
+
+    </style>
+
+    <style th:inline="text">
+        h3 {
+            background: url([[@{/user.png}]]) no-repeat;
+            padding: 100px;
+            padding-left: 30px;
+        }
+
+    </style>
+</head>
+<body>
+<h3></h3>
+<h2>Users:</h2>
+
+<table class="allUsers">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Phones</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${allUsers}">
+        <td th:text="${user.id}">1</td>
+        <td th:text="${user.name}">Иван</td>
+        <td th:text="${user.addressDataSet.street!=''}?${user.addressDataSet.street}:'no address'"></td>
+        <td th:text="${#strings.listJoin(user.phoneDataSet.![number!=''?number:'no phone'], ', ')}"></td>
+    </tr>
+
+    </tbody>
+</table>
+<a th:href="@{/}" href="login.html">New user</a>
+
+<br/><br/>
+
+</body>
+</html>
