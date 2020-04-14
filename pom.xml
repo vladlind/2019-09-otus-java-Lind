@@ -45,6 +45,7 @@
         <module>hw12_webserver</module>
         <module>hw14_multithreading</module>
         <module>hw13_DI</module>
+        <module>hw15_messagesystem</module>
     </modules>
 
     <properties>

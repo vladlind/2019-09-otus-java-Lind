@@ -19,6 +19,7 @@ public class MsClientImpl implements MsClient {
 
   @Value("frontendService")
   private final String name;
+  @Autowired
   private final MessageSystem messageSystem;
   private final Map<String, RequestHandler> handlers = new ConcurrentHashMap<>();
 
