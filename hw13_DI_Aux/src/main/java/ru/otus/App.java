@@ -20,35 +20,35 @@ PS Приложение представляет из себя тренажер 
 
 public class App {
 
-  public static void main(String[] args) throws Exception {
-    appComponentStartByClass();
-//    appComponentStartByName();
-//    appComponentStartMultiConfigClasses();
-//    appComponentStartPackageScanning();
+    public static void main(String[] args) throws Exception {
+//   appComponentStartByClass();
+//   appComponentStartByName();
+//   appComponentStartMultiConfigClasses();
+        appComponentStartPackageScanning();
 
-  }
+    }
 
-  private static void appComponentStartByClass() throws NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
-    AppComponentsContainer container = new AppComponentsContainerImpl(AppConfig.class);
-    GameProcessor gameProcessor = container.getAppComponent(GameProcessor.class);
-    gameProcessor.startGame();
-  }
+    private static void appComponentStartByClass() throws NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
+        AppComponentsContainer container = new AppComponentsContainerImpl(AppConfig.class);
+        GameProcessor gameProcessor = container.getAppComponent(GameProcessor.class);
+        gameProcessor.startGame();
+    }
 
-  private static void appComponentStartByName() throws NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
-    AppComponentsContainer container = new AppComponentsContainerImpl(AppConfig.class);
-    GameProcessor gameProcessor = container.getAppComponent("gameProcessor");
-    gameProcessor.startGame();
-  }
+    private static void appComponentStartByName() throws NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
+        AppComponentsContainer container = new AppComponentsContainerImpl(AppConfig.class);
+        GameProcessor gameProcessor = container.getAppComponent("gameProcessor");
+        gameProcessor.startGame();
+    }
 
-  private static void appComponentStartMultiConfigClasses() {
-    AppComponentsContainer container = new AppComponentsContainerImpl(EquationConfig.class, PlayerGameConfig.class, ConsoleConfig.class);
-    GameProcessor gameProcessor = container.getAppComponent("gameProcessor");
-    gameProcessor.startGame();
-  }
+    private static void appComponentStartMultiConfigClasses() {
+        AppComponentsContainer container = new AppComponentsContainerImpl(EquationConfig.class, PlayerGameConfig.class, ConsoleConfig.class);
+        GameProcessor gameProcessor = container.getAppComponent("gameProcessor");
+        gameProcessor.startGame();
+    }
 
-  private static void appComponentStartPackageScanning() {
-    AppComponentsContainer container = new AppComponentsContainerImpl("ru.otus.configForScanning");
-    GameProcessor gameProcessor = container.getAppComponent("gameProcessor");
-    gameProcessor.startGame();
-  }
+    private static void appComponentStartPackageScanning() {
+        AppComponentsContainer container = new AppComponentsContainerImpl("ru.otus.configForScanning");
+        GameProcessor gameProcessor = container.getAppComponent("gameProcessor");
+        gameProcessor.startGame();
+    }
 }
