@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 import ru.otus.hw15_MS.domain.PhoneDataSet;
 import ru.otus.hw15_MS.domain.User;
+import ru.otus.hw15_MS.messagesystem.Message;
+import ru.otus.hw15_MS.messagesystem.MessageType;
+import ru.otus.hw15_MS.messagesystem.MsClient;
 import ru.otus.hw15_MS.services.UserService;
 
 import java.util.*;
@@ -21,21 +24,26 @@ import java.util.function.Consumer;
 public class UserController {
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
-    private final UserService userService;
+    private final MsClient msClient;
+    private final String databaseServiceClientName;
     private final Map<UUID, Consumer<?>> consumerMap = new ConcurrentHashMap<>();
 
-    public UserController(UserService userService) {
-        this.userService = userService;
+    public UserController(MsClient msClient, UserService userService, String databaseServiceClientName) {
+        this.msClient = msClient;
+        this.databaseServiceClientName = databaseServiceClientName;
     }
-
     @GetMapping({"/"})
     public String loginPageView(Model model) {
         return "login.html";
     }
 
     @PostMapping({"/user/login"})
-    public String loginPagePost(Model model, @RequestParam("username") String username, @RequestParam("password") String password) {
-        if (this.userService.authenticateUser(username, password)) {
+    public String loginPagePost(Model model, @RequestParam("username") String username, @RequestParam("password") String password, Consumer<String> dataConsumer) {
+        String credentials = username + ":" + password;
+        Message outMsg = msClient.produceMessage(databaseServiceClientName, credentials, MessageType.AUTH_USER);
+        consumerMap.put(outMsg.getId(), dataConsumer);
+        msClient.sendMessage(outMsg);
+        if (Optional.of(dataConsumer).get().) {
             List<PhoneDataSet> phones = new ArrayList<>();
             for (int i = 0; i < 3; i++) {
                 phones.add(new PhoneDataSet());
@@ -51,8 +59,10 @@ public class UserController {
     }
 
     @GetMapping("/user/list")
-    public String userList(Model model) {
-        ArrayList<User> users = this.userService.getAll();
+    public String userList(Model model, Consumer<String> dataConsumer) {
+        Message outMsg = msClient.produceMessage(databaseServiceClientName, null, MessageType.ALL_USERS);
+        consumerMap.put(outMsg.getId(), dataConsumer);
+        msClient.sendMessage(outMsg);
         model.addAttribute("allUsers", users);
         return "userList.html";
     }

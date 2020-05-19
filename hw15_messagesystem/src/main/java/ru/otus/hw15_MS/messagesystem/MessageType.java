@@ -7,9 +7,10 @@ import org.springframework.stereotype.Component;
 
 
 public enum MessageType {
-  USER_DATA("UserData");
+  ALL_USERS("AllUsers"),
+  AUTH_USER("Authenticate"),
+  SAVE_USER("SaveUser");
 
-  @Value("UserData")
   private final String value;
 
   @Autowired

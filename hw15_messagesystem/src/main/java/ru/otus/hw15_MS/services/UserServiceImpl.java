@@ -3,10 +3,12 @@ package ru.otus.hw15_MS.services;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.otus.hw15_MS.domain.User;
+
 import ru.otus.hw15_MS.repository.UserRepository;
 
 import javax.persistence.NoResultException;
 import java.util.ArrayList;
+
 
 @Service
 @Transactional
@@ -16,6 +18,7 @@ public class UserServiceImpl implements UserService {
 
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
+
     }
 
     @Override
