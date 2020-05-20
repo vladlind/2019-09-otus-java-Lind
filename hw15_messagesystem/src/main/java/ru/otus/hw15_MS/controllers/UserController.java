@@ -2,6 +2,8 @@ package ru.otus.hw15_MS.controllers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,10 +29,12 @@ public class UserController {
     private final MsClient msClient;
     private final String databaseServiceClientName;
     private final Map<UUID, Consumer<?>> consumerMap = new ConcurrentHashMap<>();
+    private final SimpMessagingTemplate template;
 
-    public UserController(MsClient msClient, UserService userService, String databaseServiceClientName) {
+    public UserController(MsClient msClient, UserService userService, String databaseServiceClientName, SimpMessagingTemplate template) {
         this.msClient = msClient;
         this.databaseServiceClientName = databaseServiceClientName;
+        this.template = template;
     }
     @GetMapping({"/"})
     public String loginPageView(Model model) {
@@ -38,7 +42,7 @@ public class UserController {
     }
 
     @PostMapping({"/user/login"})
-    public String loginPagePost(Model model, @RequestParam("username") String username, @RequestParam("password") String password, Consumer<String> dataConsumer) {
+    public String loginPagePost(Model model, @RequestParam("username") String username, @RequestParam("password") String password, Consumer<Boolean> dataConsumer) {
         String credentials = username + ":" + password;
         Message outMsg = msClient.produceMessage(databaseServiceClientName, credentials, MessageType.AUTH_USER);
         consumerMap.put(outMsg.getId(), dataConsumer);
@@ -59,7 +63,8 @@ public class UserController {
     }
 
     @GetMapping("/user/list")
-    public String userList(Model model, Consumer<String> dataConsumer) {
+    @MessageMapping("/AllUsers")
+    public String userList(Model model, Consumer<ArrayList<User>> dataConsumer) {
         Message outMsg = msClient.produceMessage(databaseServiceClientName, null, MessageType.ALL_USERS);
         consumerMap.put(outMsg.getId(), dataConsumer);
         msClient.sendMessage(outMsg);
