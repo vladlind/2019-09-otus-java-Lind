@@ -1,8 +1,4 @@
 package ru.otus.multithreading;
-/*
-Based on this article:
-http://javabypatel.blogspot.com/2017/06/how-to-run-two-thread-one-after-another-in-java.html
-*/
 
 public class ThreadStepper {
 
